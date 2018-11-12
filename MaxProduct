@@ -1,0 +1,91 @@
+Max product of two numbers in an array
+
+Consider the array {-10,-3,5,6,-2}
+
+If one sorts this array {-10,-3,-2,5,6}
+
+Now note that (-10,-3) = 30 and (5,6) = 30
+
+Both yield the same product hence both the pairs can be outputted.
+
+We consider the naive solution as well as a simple logic based solution
+
+class FindMaxProduct
+{
+  // Naive solution to find maximum product of two integers in an array
+   public static void findMaxProduct(int[] A)
+   {
+     int max_product = Integer.MIN_VALUE;
+     int max_i = -1, max_j = -1;
+
+     // consider every pair of elements
+    for(int i = 0; i < A.length; i++)
+     {
+       for(int j = i + 1; j < A.length; j++)
+        {
+            // update max product if required
+           if(max_product < A[i] * A[j])
+            {
+              max_product = A[i] * A[j];
+              max_i = i;
+              max_j = j;
+            }
+         }
+      }
+
+     System.out.print("Pair is (" + A[max_i] + " , " + A[max_j] + ")");
+    }
+
+  // main function
+   public static void main(String[] args)
+    {
+      int[] A = {-10,-3,5,6,-2};
+      findMaximumProduct(A);
+     }
+}
+
+Pair is (-10,-3)
+
+The TC = O(n^2) and aux space = O(1)
+
+Time Complexity can be improved by sorting the array. then the  max product is formed by maximum of
+
+1) product of maximum and second maximum integer in the array which are the last two elements
+in the sorted array
+
+2) product of minimum and second minimum integer in the array which are the first two elements in the sorted array
+
+import java.util.Arrays;
+
+class FindMaxProduct
+{
+   // Naive solution to find max product of two integers in an arary
+    public static void findmaxProduct(int[] A)
+     {
+       // n is the length of the array
+       int n = A.length;
+
+       // sort array in the ascending order
+       Arrays.sort(A);
+
+      // maximum product is formed by the max of
+      // 1. product of first two elements or
+      // 2. product of last two elements
+
+     if((A[0] * A[1] > A[n-1] * A[n-2])){
+        System.out.print("Pair is (" + A[0] + ',' + A[1] + ')');
+      } else {
+         System.out.print("Pair is (" + A[n-1] + ',' + A[n-2] + '));
+       }
+   }
+
+// main function
+
+public static void main(String[] args)
+{
+  int[] A = {-10,-3,5,6,-20};
+  findmaxProduct(A);
+ }
+}
+      
+ 
