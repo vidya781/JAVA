@@ -1,0 +1,58 @@
+
+Find all N digit binary numbers having more 1's than 0's for any prefix
+
+Given a positive integer N, find all N-digit binary numbers having more 1's than 0's 
+for any prefix of the number
+
+Consider the foll numbers:
+
+1111
+1110
+1101
+1100
+1011
+1010
+
+1001 will not form part of the solution as it violates the problem constraints
+(1001 has 2 zeros and 1 ones at 3rd position), same applies for all other 4 digit numbers
+
+A better solution would be to generate only those N digit numbers that satisfy the given constraint 
+The idea is to use recursion and at each point in the recursion, we append 0 and 1 to the partially 
+formed number and recurse with one less digit.
+
+Also maintain count of number of zeroes and number of ones in the partailly formed number and the optimization here is if number of ones are less than the number of zeroes at any poimnt in the recursion we return
+
+class Util
+{
+   // Function to find all N digit binary numbers having more 1's than 0's
+    
+    public static void find(String str,int n, int zeros, int ones)
+    {
+       // continue only if number of ones are more than equal to number of zeroes
+      if(ones < zeros) {
+         return;
+      }
+      // if number becomes N-digit print it
+      if(n == 0)
+      {
+        System.out.println(str);
+         return;
+       }
+
+       // append 1 to the result and recurse with one less digit
+       find(str + "1", n-1, zeros, ones + 1);
+
+      // append 0 to the result and recurse with one less digit
+      find(str + "0", n-1,zeros + 1, ones);
+
+     }
+
+   public static void main(String[] args)
+    {
+      // given number of digits
+      int n = 4;
+      
+      String str = "";
+      find(str,n,0,0);
+     }
+}
