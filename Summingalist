@@ -1,0 +1,28 @@
+Program to sum a list of numbers entered by the user. Converts the string rep of each number into an int using parseint()
+
+import java.io.*;
+
+class parseDemo{
+  public static void main(String args[])
+     throws IOException
+  {
+    // create a bufferedreader using System.in
+   BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+   string str;
+   int i;
+   int sum = 0;
+
+   System.out.println("enter numbers, 0 to quit.");
+   do {
+     str = br.readLine();
+     try{
+       i = Integer.parseInt(str);
+      } catch(NumberFormatException e){
+          System.out.println("Invalid Format");
+          i = 0;
+        }
+        sum += i;
+        System.out.println("Current sum is " + sum);
+      } while(i != 0);
+     }
+}
