@@ -1,0 +1,46 @@
+Sorting an array using Count Sort Algo
+
+Iterate over the colection and construct a map storing information about the number of times each key occurs within the input collection.
+Then we loop over the collection again, and then use those counts determine the final positions of each key value in the collection.
+This takes advantage of the fact that a map is sorted according to the natural order of keys in ascending order
+
+import java.util.Arrays;
+import java.util.hashMap;
+import java.util.Map;
+
+class CountSort
+{
+  public static void countSort(int[] nums)
+     //create a HashMap to store frequency of array elements
+     Map<Integer, Integer> freq = new HashMap<>();
+
+     // store distinct values in the input array as key and their respective counts as values in the HashMap
+    for(int i = 0; i < nums.length; i++){
+        if(!freq.containsKey(nums[i])){
+           freq.put(nums[i],0);
+        }
+        freq.put(nums[i],freq.get(nums[i]) + 1);
+       }
+      // traverse the map (based on sorted order of keys) and
+    // overwrite the input array with sorted elements
+   int i = 0;
+   for(Map.Entry<Integer, Integer> entry: freq.entrySet())
+   {
+     int value = entry.getValue();
+     while(value-- > 0){
+        nums[i++] = entry.getKey();
+      }
+    }
+}
+
+// driver program for count sort algo
+
+public static void main(String[] args)
+{
+   int[] nums = {4,2,1,4,1,4,2,1,10};
+   countSort(nums);
+   System.out.println(Arrays.toString(nums));
+   }
+}
+
+
