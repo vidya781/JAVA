@@ -2,7 +2,7 @@ Write a program in java which reads a number from the console and converts the n
  Example, if the number entered is 23, the program should print twenty three. For input 3435, it should print three thousand four hundred thirty five and so on.
 
 
-import java.util.Scanner;
+
 import java.util.Scanner;
  
 public class NumberToWordConverter {
