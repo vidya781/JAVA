@@ -1,0 +1,79 @@
+Finding the equilibrium index of an array
+
+For an array containing n elements, index i is an eq index if sum of elements of sub array A[0...i-1] is equal to the sum of elements of sub aray A[i+1...n-1] ie
+
+A[0] + A[1] + ....+A[i-1] = A[i+1] + A[i+2].....+A[n-1] when 0 < i < n-1
+
+Naive solution---
+
+Calculate sum of elements to left and sum of elements to the right for each element of the array. If the left subarray is same as right sub array sum for a element,
+we print its index. The TC = O(n^2)
+
+class EquilibriumIndex
+ {
+    //function to find eq index of an array
+     public static void equilibriumindex(int A[])
+    {
+        int left[] = new int[A.length];
+
+        //traverse array from left to right
+     for(int i = 1; i < A.length;i++){
+         left[i] = left[i-1] + A[i-1];
+      }
+    //right stores sum of elements of sub array A[i+1...n)
+     int right = 0;
+
+    // traverse array from R to L
+     for(int i = A.length-1; i >= 0; i--)
+      {
+        /*if sum of elements of sub array A[0..i-1] = sum of elements of sub array A[i+1...n) 
+         (A[0] +.....+ A[i-1]) = (A[i+1] + A[i+2] +.....+A[n-1])*/
+        if(left[i] == right){
+           System.out.println("Equilibrium Index found at " + i);
+         }
+      //new right = A[i] + (A[i+1]+A[i+2]...+A[n-1])
+        right += A[i];
+       }
+    }
+// Program to find eq index of an array
+
+public static void main(String[] args)
+{
+   int[] A = {0,-3,5,-4,-2,3,1,0};
+    equilibriumIndex(A);
+  }
+}
+
+
+-----------------------------------------------------------
+
+Altenate way to solve this
+
+import java.util.stream.InStream;
+
+class EquilibriumIndex
+{
+   public static void equilibriumindex(int[] A)
+    {
+       int total = InStream.of(A).sum();  // Java 8
+       int right = 0;  // total stores sum of all elements of the array
+       for(int i = A.length-1; i >= 0; i--)
+       {
+         /*i is equilbrium index if sum of elements of sub array A[0...i-1] = sum of elements of sub array A[i+1...n)
+ ie A[0] + A[1] +....+A[i-1] = A[i+1] + A[i+2] +....A[n-1]
+
+       if(right == total -(A[i] + right)){
+           System.out.println("Equilibrium index found at " + i);
+         } 
+      // new right = A[i] + (A[i+1] + A[i+2]+.....+A[n-1])
+       right += A[i];
+      }
+   }
+
+ // Program to find the eq index of the array
+  public static void main(String[] args)
+  {
+    int[] A = {0,-3,5,-4,-2,3,1,0};
+    equilbriumIndex(A);
+    }
+}
