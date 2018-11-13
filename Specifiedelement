@@ -1,0 +1,32 @@
+ArrayList contains() method is used for checking the specified element existence in the given list.
+
+import java.util.ArrayList;
+public class ContainsExample {
+    public static void main(String[] args{
+
+       ArrayList<String> a1 = new ArrayList<String>();
+       a1.add("pen");
+       a1.add("pencil");
+       a1.add("ink");
+       a1.add("notebook");
+
+       System.out.println("ArrayList contains the string 'ink open': " + a1.contains("ink pen"));
+       System.out.println("ArrayList contains the string 'pen': " + a1.contains("pen"));
+       System.out.println("ArrayList contains the string 'pencil': " + a1.contains("pencil"));
+       System.out.println("ArrayList contains the string 'book': " + a1.contains("book"));
+ 
+       ArrayList<Integer> al2 = new ArrayList<Integer>();
+       al2.add(1);
+       al2.add(99);
+       al2.add(56);
+       al2.add(13);
+       al2.add(44);
+       al2.add(6);
+  
+      system.out.println(" '1' is present in arraylist: "+al2.contains(1));
+      system.out.println(" '55' is present in arraylist: "+al2.contains(55));
+      system.out.println(" '44' is there in arraylist: " +al2.contains(44));
+      system.out.println(" '7' is there in arraylist: " + al2.contains(7));
+     }
+}
+
