@@ -1,0 +1,41 @@
+Java Prog to find product of N fractions in reduced form
+
+import java.io.*;
+
+class findproductoffraction {
+    // Function to return gcd of a and b
+   static int gcd(int a, int b)
+   {
+       if(a == 0)
+           return b;
+       return gcd(b % a, a);
+    }
+     
+   static void productreduce(int n, int num[], int den[])
+   {
+     int new_num = 1, new_den = 1;
+     // finding the product of all N numerators and denominators
+    for(int i = 0; i < n; i++) {
+        newnum *= num[i];
+        newden *= den[i];
+      }
+    
+    int GCD = gcd(newnum, newden);
+     
+    // Converting to reduced form
+    
+     newnum /= GCD;
+     newden /= GCD;
+
+     System.out.println(newnum + "/" + newden);
+    }
+    
+    // Driver prog
+    public static void main(String[] args) {
+      int n = 3;
+      int num[] = {1,2,5};
+      int den[] = {2,1,6};
+      productReduce(n,num,den);
+     }
+  }
+
