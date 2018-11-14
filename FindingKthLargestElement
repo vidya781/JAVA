@@ -1,0 +1,103 @@
+Finding the Kth Largest Element
+
+Calculate the number of nodes n present in the BST. The kth largest element would be n0k th smallest element
+
+Above approach requires two traversals of the array. We solve this problem in one ptraversal of the array by using reverse in order traversal ( traverse right subtree before the left subtree for every node)
+
+Then the reverse in order traversal of a BST will process the nodes in descending order
+
+import java.util.concurrent.atomic.AtomicInteger;
+
+// Data structure to store a BST node
+
+class Node
+{
+   int data;
+   Node left = null; right = null;
+
+   Node(int data) {
+         this.data = data;
+    }
+  }
+
+class BST
+{
+  // Recursive function to insert key into BST
+   public static Node insert(Node root, int key)
+   {
+     // if root is null, create new node and return it
+      if(root == null) {
+          return new Node(key);
+       }
+    // if given key is less than root node, recurse for left subtree
+     if( key < root.data) {
+         root.left = insert(root.left, key);
+      }
+   //if given key is more than root node, recurse for right subtree
+     else {
+       root.right = insert(root.right, key);
+      }
+     return root;
+    }
+
+// Function to find kth largest element in BST
+// Here i denotes the number of nodes processed so far
+
+ public static int kthlargest(Node root, AtomicInteger i, int k)
+{
+   // base case
+    if(root == null) {
+       return Integer.MAX_VALUE;
+    }
+ // search in right subtree
+   int left = kthLargest(root.right, i, k);
+  
+  //if kth largest is found in left subtree, return it
+   if(left != Integer.MAX_VALUE){
+      return left;
+    }
+  // if current element is kth largest, return its value
+   if(i.incrementAndGet() == k) {
+       return root.data;
+     }
+
+    // else search in left subtree
+  return kthLargest(root.left, i, k);
+  }
+
+  // function to find kth largest element in BST
+  public static int kthLargest(Node root, int k)
+  {
+    // maintain index to count the number of nodes processed so far
+     AtomicInteger i = new AtomicInteger(0);
+
+    // traverse the tree in inorder fashion and retunr the kth element
+     return kthLargest(root, i, k);
+  }
+
+   // main function
+ public static void main(String[] args)
+ {
+   Node root = null;
+   int[] keys = { 15,10,20,8,12,16,25};
+   
+   for(int key : keys){
+     root = insert(root,key);
+   }
+
+  int k = 2;
+  int res = kthLargest(root,k);
+
+  if(res != Integer.MAX_VALUE){
+     System.out.print(res);
+   }
+  else {
+     System.out.print("Invalid Input");
+    }
+  }
+}
+
+TC: O(n)
+
+
+  
