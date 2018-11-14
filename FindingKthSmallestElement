@@ -1,0 +1,108 @@
+Finding Kth Smallest element
+
+In order traversal of a BST returns the nodes in asceding order. Thus to find the Kth smallest element, we
+perform in order traversal and store the inorder order in an array.
+Finally we traverse the array and return the kth element from starting. It does take extra space in this case.
+
+Can solve this problem without using any extra space by keeping track of number of nodes processed so far while traversing the tree in inorder style.
+When the number of nodes = K, the current node is Kth smallest.
+
+import java.util.concurrent.atomic.AtomicInteger;
+
+class Node
+{
+  int data;
+  Node left = null, right = null;
+
+  Node(int data) {
+     this.data = data;
+    }
+  }
+
+class BST
+{
+    // Recursive function to insert a key into the BST
+   public static Node insert(Node root, int key)
+  {
+     // if the root is null, create a new node and return it
+      if(root == null) {
+         return new Node(key);
+      }
+
+    // if given key < root node, recurse for left subtree
+     if( key < root.data) {
+         root.left = insert(root.left,key);
+       }
+
+    // if given key is more than the root node recurse for right sb tree
+   else {
+        root.right = insert(root.right,key);
+      }
+    return root;
+   }
+
+  // Function to find kth smallest element in BST
+   /// Here i denotes the number of nodes processed so far
+   public static int kthsmallest(node root, AtomicInteger i, int k)
+   {
+     // base case
+      if(root == null){
+         return Integer.MAX_VALUE;
+      }
+
+     //search in left subtree
+     int left = kthsmallest(root.left, i,k);
+
+    //if kth smallest is found in left subtree, return it
+   if(left != Integer.MAX_VALUE){
+      return left;
+     }
+
+  // if current element is kth smallest return it
+    if(left != Integer.MAX_VALUE){
+       return left;
+    }
+
+  // if current element is kth smallest, return its value
+   if(i.incrementAndGet() == k) {
+          return root.data;
+     }
+
+    // else search in right subtree
+    return kthsmallest(root.right,i,k);
+    }
+
+  // function to find kh smallest element in BST
+   public static int kthSmallest(node root, int k)
+   {
+    // maintain index to count the number of nodes processed so far
+     AtomicInteger i = new AtomicInteger(0);
+
+    // trvarers the tree in inorder style and return the kth element
+    return kthSmallest(root,i,k);
+    }
+
+  // main function
+
+  public static void main(String[] args)
+   {
+     Node root = null;
+     int[] keys = { 15,10,20,8,12,16,25};
+
+     for(int key:keys){
+       root = insert(root,key);
+      }
+
+    int k = 2;
+    int res = kthsmallest(root, k);
+
+     if(res != Integer.MAX_VALUE){
+       System.out.print(res);
+      }
+     else {
+       System.out.print("Invalid Input");
+      }
+    }
+}
+
+Time Complexity : O(n)
