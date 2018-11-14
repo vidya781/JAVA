@@ -1,0 +1,57 @@
+
+Consider the following piece of code :
+
+puublic class AnimalFarm{
+     public static void main(String[] args){
+       final String pig = "length: 10";
+       final String dog = "length: " + pig.length();
+       System.out.println("Animals are equal: " + pig == dog);
+     }
+}
+
+Superficial analysis:Animals are equal:true
+
+Why?
+
+pig and dog are both final String variables initialized to the character sequence "length: 10"
+
+In other words, the strings referred to by pig and dog are and will forever remain equal to each other.
+
+The == operator, however, does not test whether two objects are equal; it actually tests whether two object references are identical.
+
+In other words, it tests whether they refer to precisely the same object and in this case they do not.
+
+Compile time constants of type String are interned. What this means is that any two constant expressions of type String that designate the same character sequence are represetnted by identical object references.
+If initialised with constant expressions , both pig and dog would indeed refer to the same object but dog is not initialised with a constant expression.
+
+The language constraints which operations are permitted to appear in a constant expression and method invocation is not among them.
+
+Therefor eour expectation is that : Animals are equal:False, should be printed.
+
+Actually, only false is printed.
+
+The + operator whetehr used for addition or string concatenation binds more tightly than the == operator. Therefore, the paramter of the println method is evaluated:
+
+System.out.println(("Animals are equal: " + pig)==dog);
+
+The value of the boolean expression is of course false, and that is what is printed.
+
+In order to avoid this difficulty, when using the string concatenation operator, always parenthesize nontrivial operands. 
+
+If one parenthesizes the comparison in the println statement as follows, it will produce the expected output of Animals are equal:false
+
+System.out.println("Animals are equal: " + (pig == dog));
+
+Code should rarely if ever depend on the interning of string constants.
+
+Why was interning required?
+
+Designed solely to reduce the memory footprint of the VM not as a tool for programmers. If the code depends on intering for its correct operation, one must carefully keep track of which fields and parameters must be interned.
+The compiler cant check the invariants for us as interned and noninterned strings are represented by the same string (String)and the bugs that result froma  failure to intern a string are typically quite difficult to detect.
+
+When comparing object references one should use the equals method in reference to the == operator unless one needs to compare object identty than value.
+
+System.out.println("Animals are equal: " + pig.equals(dog));
+
+Natural precedence of string concatenation might not be same as addition. Also, reference equality is more confusing than value equality for miiutable types as String. Perhaps the == operator should perform value comparisons when applied to immutable reference types.
+One possible way to achieve this would be to make the == operator a shorthand for the equals method and to provide a separate method to perform reference identity comparison, aking to System.identityHashCode.
