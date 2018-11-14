@@ -1,0 +1,57 @@
+Given an array where all its elements are sorted except 2 elements which were swapped,
+sort the array in linear time. Assume there are no duplicates in the array.
+
+Input:A[] = [3,8,6,7,5,9] 
+Output:A[] = [3,5,6,7,8,9]
+
+The idea is to start from a designated index and compare every element to its previous element. 
+We take two pointers (say x and y) to store location of the misplaced numbers.
+If previous element is > than the current element we update x to the index of the previous element and y to the index of the current element. if again at some point,
+we find that previous element is > than the current element, we update y to index of the current element.
+Finally after we are done processing each adjacent pair of elements, we swap the elements present att index x and index y.
+
+import java.util.Arrays;
+
+class Sort
+{
+  private static void sortArray(int[] arr)
+   {
+      int x = -1, y = -1;
+      int prev = arr[0];
+
+      // process each adjacent pair of elements
+      for(int i = 1; i < arr.length; i++)
+       {
+          // previous element is > than current element
+          if(prev > arr[i])
+          {
+             //first occurrence of conflict
+             if(x == -1){
+                x = i - 1;
+                y = i;
+             }
+           else {
+               // second occurence of conflict
+                 y = i;
+               }
+            }
+             prev = arr[i];
+        }
+      // swap the elements present at index x and index y
+       swap(arr,x,y);
+     }
+
+private static void swap(int[] a, int i, int j){
+   int temp = a[i];
+    a[i] = a[j];
+    a[j] = temp;
+   }
+public static void main(String[] args)
+{
+  int[] a = {3,5,6,9,8,7};
+  sortArray(a);
+  System.out.println(Arrays.toString(a));
+  }
+}
+
+
