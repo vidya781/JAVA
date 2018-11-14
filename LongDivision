@@ -1,0 +1,46 @@
+Long Division
+
+Dividing 2 long values 
+
+public class LongDivision{
+   public static void main(String[] args) {
+     final long MICROS_PER_DAY = 24*60*60*1000*1000;
+     final long MILLIS_PER_DAY = 24*60*60*1000;
+     System.out.println(MICROS_PER_DAY/MILLIS_PER_DAY);
+    }
+}
+
+Expectation : 1000
+Actually prints : 5
+
+Cause: Computation of the constant MICROS_PER_DAY does overflow.
+Although the result of the computation fits in a long with room to spare, it does not fit in an int.
+The computation is performed entirely in int arithmetic and only after the computation completes is the result promoted to a long.Actually the computation has already overflowed returning a value 
+that is too low by a factor of 200. Promotion from int to long is a widening primitive conversion which preserves the incorrect numerical value.
+
+This value is then divided by MILLIS_PER_DAY which was computed correctly because it fits into an int and teh result of this division is 5.
+
+When one multiplies 2 int values the result is agian an int value.
+Java  does not have target typing a language feature wherein the type of the variable in which a result is to be stored influences the type of conversion.
+
+Easy to fix by using a long literal in place of an int as thefirst factor in each product. This forces all subsequent computations in the expression to be done with long arithmetic. Although it is necessary to do this only in the expression for MICROS_PER_DAY, it is good form to do it both products. Similarly, it isnt always 
+necessary to use a long as the first value in a product but it us good form to do so definitely.
+
+Consider now the foll piece of code to workaround this problem:
+
+public class LongDivision{
+    public static void main(String[] args){
+      final long MICROS_PER_DAY = 24L * 60 * 60 * 1000 * 1000;
+      final long MILLIS_PER_DAY = 24L * 60 * 60 * 1000;
+      System.out.println(MICROS_PER_DAY/MILLIS_PER_DAY);
+     }
+}
+
+Overflow is a silent killer. Watch out for it.
+Just because a variable is large enough to hold a result doesnt mean that the computation leading to the result is of the correct type.
+When in doubt, perform the entire computation using long arithmetic.
+
+Ada, ( throws exception)
+Lisp( switches to a larger internal representation automatically)
+Another way to reduce the likelihood of silent overflow is to support target typing but this adds significant complexity to the type system.( Modula)
+
