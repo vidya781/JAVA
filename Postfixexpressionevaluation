@@ -1,0 +1,89 @@
+Evaluation of Postfix Expression
+
+The Postfix nottaion is used for algebraic expressions. The expressions written in postfix form are evaulated faster compared to infix notation as parentheses not required in 
+postfix.
+
+Following is algorithm for evaluation postfix exp:
+1) Create a stack to store operands(or values)
+2) Scan the given expression and do the following for all scanned elems
+   a) If elem is a number push it on to the stack
+   b) If the elem is an operator, pop operands for the operator from stack. Evaluate the operator and push result back to stack
+3) When expression has ended the number in stack is the final answer
+
+Example
+
+"2 3 1 * + 9-" Scan all elems one by one
+
+1) Scan 2, a number so pushed on to the stack. Stack contains 2
+2) Scan 3 again a number push it to stack stack now has 2 3(from bottom to top)
+3) Scan 1 again a number push it to stack stack now becomes 2 3 1
+4) Scan *, operator has to work on 2 operands, apply * to 3 and 1 to get 3 and push this no on the existing stack to get 2 3
+5) Scan +, operator has to work on 2 items to get 2 + 3 to yield 5 and push onto stack to get 5
+6) Scan 9 a number and push onto stack to yield 5 9
+7) Scan now -, pop 2 operands 5-9 = -4 and push it to stack to get -4 on the stack
+8) No more elems to scan so teh top elem ins returned from stack(which is the only elem left in stack)
+
+
+import java.util.Stack;
+
+class Test1
+{
+   static int evaluatePostfix(String exp)
+   {
+     Stack<Integer> stack = new Stack<>();
+     for(int i = 0; i < exp.length();i++)
+     {
+       char c = exp.charAt(i);
+       if(c == ' ')
+       continue;
+       else if(Character.isDigit(c))
+       {
+          int n = 0;
+          while(Charactr.isDigit(c))
+          {
+            int n = 0;
+            while(Character.isDigit(c))
+            {
+              n = n*10 + (int)(c-'0');
+              i++;
+              c = exp.charAt(i);
+             }
+             i--;
+            stack.push(n);
+          }
+          else
+          { 
+             int val1 = stack.pop();
+             int val2 = stack.pop();
+              
+              switch(c)
+              {
+                 case '+':
+                 stack.push(val2+val1);
+                 break;
+ 
+                 case '-':
+                 stack.push(val2 - val1);
+                 break;
+
+                 case '/':
+                 stack.push(val2/val1);
+                 break;
+
+                 case '*':
+                 stack.push(val2*val1);
+                 break;
+                }
+               }
+             }
+            return stack.pop();
+
+        // Driver prog
+
+     public static void main(String[] args)
+     {
+        String exp = "100 200 + 2 / 5 * 7 + ";
+        System.out.println(evaluatePostfix(exp));
+     }
+ }
+       
