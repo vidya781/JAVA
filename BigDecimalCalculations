@@ -1,0 +1,52 @@
+
+Consider the following piece of code:
+
+public class Change{
+   public static void main(String args[]){
+      System.out.println(2.00-1.10);
+    }
+  }
+
+Expected output: 0.90
+
+When one runs this program it prints 0.8999999999
+
+For converting Double values to strings, ( specified by documentation for Double.toString)
+the program prints the shortest decimal fraction sufficient to distinguish the double value from its nearest neighbor with at least one digit before and after the decimal point.
+
+The problem is that not all decimals can be represented exactly using the binary floating point.
+
+If one is using Release 5 or a later release, one might be tempted to fix the prog by using the printf facility to set the precision of the output:
+
+//Poor solution-still uses binary floating-point
+
+System.out.printf("%.2f%n",2.00-1.10);
+
+Prints the correct answer no doubt, but does not represent a general solution to the underlying problem.
+
+Still uses double arithmetic which is binary floating point and fp arithmetic provides good approx over a wide range of values but does not generally yield exact results.
+
+Binary floating point is generally not suited for calculations like these as it is imposs to represent 0.1 or any other neg power of 10 exactly as a finite length binary fraction.
+
+One way to workaround this is:
+
+System.out.println((200 - 110) + " cents ");
+
+( Use the integral type int or long)
+
+Another way to solve this is to use BigDecimal which performs exact decimal arithmetic. Also interoperates with the SQL DECIMAL type via JDBC. One caveat: Always use the BigDecimal(String) constructor never BigDEcimal(double)
+
+import java.math.BigDecimal;
+public class Change {
+   public static void main(String args[]) {
+      System.out.println(new BigDecimal("2.00').subtract(new BigDecimal("1.10")));
+    }
+}
+
+Some key points:
+
+Java provides no linguistic support for BigDecimal.
+Calculations with BigDecimal are also likely to be slower than those with any primitive type which might be an issue for some programs that make use of decimal calculations. ( For most programs it is of no consequence)
+
+In summary, avoid float and double where exact answers are required; for monetary calculations, use int, long or BigDecimal.
+
