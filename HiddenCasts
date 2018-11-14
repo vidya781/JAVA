@@ -1,0 +1,79 @@
+
+Hidden casts
+
+x += i;
+
+x = x + i;
+
+
+The second statement uses the simple assignment operator whereas the first uses a compound 
+assignment operator
+
+Compound assignment operators are:
+
++=,-=,*=,/=,%=,<<=,>>=, >>>=,&=,^= and |=
+
+The JLS actual implication :
+
+E1 = (T)((E1)op(E2)) where T is the type of E1, except that E1 is evaluated only once.
+
+Compound assignment expressions automatically cast the result of the computation they perform 
+to the ype of the variable on the LHS.
+
+If the type of teh result is identical to the type of the variable then the cast has no effect whatsoever.
+
+If, however, the type of the result is wider than that of the variable the compound assignment operator performs a silent narrowing primitive conversion.
+
+short x = 0;
+int i = 123456;
+
+What happens when:
+
+short x = 0;
+int i = 123456;
+
+x += i; // contains a hidden cast
+
+One might expect the value to be 123,456 after this statement executes but it isnt, it is -7,616. The int value 123456 is too big to fit in a short. The automatically generated cast silently lops off the two 
+high order bytes of the int value which is not what we want.
+
+The corr simple assignment is illegal as it attempts to assign an int value to a short variable as it requires an explicit cast\
+
+x = x + i; // wont compile--possible loss of precision.
+
+Generally speaking, do not use compound assignment operators on variables of type byte, short or char.
+
+When using compound assignment operators on variables of type int, ensure that the expression on the RHS is not of type long, float or double.
+
+When using the compound assignment operators on variables of type float, ensure taht expn on RHS is not of type double.
+
+In summary, compound assignment operators silently generate a cast. If the type of the result of a  computation is wider than that of the variable, the genertaed cast is a narrowing cast and such castst can silently discardc precision or magnitude.
+------------------
+
+Consider the reverse aspect:
+
+x = x + i;
+ and this is not
+
+x += i;
+
+Compound assignment operators require both operands to be primitives s int, or boxed primitives such as Integer with one exception: The += operator allows its RH operand to be of any type if the variable on the LHS is of type String in which case
+the operator performs string concatenation and the simple assignment operator = is much less picky when it comes to allowing object reference types on the LHS.
+
+As long as the expn on the RHS is assignment compatible with the variable on the left it should be ok.
+
+To perform string concatenation with the += operator one must declare the variable on its LHS to be of typ String abd uyse the simple assignment operator, the results of a string concatenation can be stored in a variable of type Object
+
+Consider the following declarations:
+
+Object x = "Buy";
+String i = "effective java";
+
+The simple assignment is legal as x + i is of type String and String is assignment compatible with Object:
+
+x = x + i;
+
+The compound assignment is illegal as the LHS has an object reference typeother than String:
+x += i;
+
+
