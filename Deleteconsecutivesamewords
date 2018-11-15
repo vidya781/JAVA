@@ -1,0 +1,54 @@
+Delete consecutive same words in a sequence
+
+Given a sequence of strings, task is to check if any 2 similar words come together then destroy
+each other and then print the words left in the sequence after this pairwise destruction
+
+Input : tom jerry jerry tom
+Output 2
+
+Its clear we need a recursive program of some sort for the word cancellation.
+
+Check for equality of words consecutively in a pairwise manner 
+
+In the above example, tom and jerry are compared but are not equal so jerry and jerry are compared and are equal so they are cancelled
+so the input now becomes tom tom and again the comparison is done and since we find equality in tom tom the 2 words cancel out and we are left with 0
+
+import java.util.Vector;
+
+class removeconsecutive
+{
+   // Method to find the size of the manipulated sequence
+    
+    static int removeconsecutivesame(Vector <String> v)
+    {
+      int n = v.size();
+
+       // Start traversing the sequence
+       for(int i = 0; i < n-1;)
+       {
+          if(v.get(i).equals(v.get(i+1)))
+          {
+           v.remove(i); // Erase function deletes the elem and also shifts other elems thats why i is not updated
+           v.remove(i);
+
+           if (i > 0)  // update i, as to check from previous elem again
+               i--;
+
+            // Reduce sequence size
+            n = n-2;
+           }
+
+           else
+               i++;
+        }
+       return v.size();
+    }
+
+  public static void main(String[] args)
+  {
+    Vector<String> v = new Vector<>();
+    v.addElement("tom"); v.addElement("jrry");
+    v.addElement("jerry");v.addElement("tom");
+    System.out.println(removeConsecutiveSame(v));
+   }
+  }
