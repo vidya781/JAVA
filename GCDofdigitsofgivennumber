@@ -1,0 +1,21 @@
+program to find GCD of digits of a given number
+
+def __gcd(a,b):
+    return a if(b==0) else_gcd(b, a % b)
+
+def digitGCD(n):
+    gcd = 0 
+    while(n > 0):
+        gcd = _gcd( n % 10,gcd)
+        if (gcd == 1):
+            return 1
+        n = n // 10
+    return gcd
+
+n = 2448
+print(digitGCD(n))   # Recursive function to return gcd of a and b
+
+Traversal of the digits of the number one by one using the loop below:
+ 
+digit = nmod10;
+n = n/10;
