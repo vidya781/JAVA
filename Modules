@@ -1,0 +1,15 @@
+Modules
+
+A module declaration introduces a module name that can be used in other module declarations to express relationships 
+between modules.
+
+A module name consists of one or more Java identifiers separated by "." tokens
+
+There are two kinds of modules:normal modules and open modules.
+
+The kind of a module determines access to the module's types and the members of those types for code outside the module.
+
+A normal module without the open modifier, grants access at compile time and run time to types in only those packages which are explicitly exported.
+
+An open module with the open modifier, grants access at compile time to types in only those packages which are explicitly exported, but grants access
+at run time to types in all its packages, as if all packages had been exported.
