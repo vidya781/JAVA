@@ -1,0 +1,166 @@
+
+When data arrives at the one physical connection to the network, how does it get routed to the target application? Here is where 
+ports come in.Each application that needs data from the network is assigned a port(this includes clients connecting to a server that is on the 
+same machine) and when data arrives, the port number is used to route the data to the application that is waiting for it.
+
+When asked for an IP address, one may get IPv4 or IPv6 address(hexadecimals with colon representation)
+
+IP stands for Internet Protocol. One may come across TCP/IP. This refers to the TCP protocol with IP addressses which doesnt necessarily mean the host
+is connected with IP addresses which doesnt necessarily mean the host is connected to the Internet. Two applications running on the same host can use the TCP/IP
+to communicate with each other. When the client and the server are on the same host, usually the IP address 127.0.0.1 which is referred to as localhost, used to identify 
+the host.
+
+Java.net package contains two sets of API's: the lower level API, and the high level API. When using the low level API, one must be aware of the networking concepts and when using Java to do network coding, one is always working with
+abstractions, regardless of whether one uses the high or low level API.
+
+Java makes network coding much easier than it could have been by letting developers write code using abstract concepts and taking care of implementation details under the covers.
+
+TCP stands for Transmission control protocol and establishes a 2 way connection between the hosts and this connection is reliable in the sense two hosts communicate with each other.
+
+The sequence of events is as follows:
+
+1) Client opens a connection to the server
+2) The client sends a request to the server
+3) The server sends a response to the client
+4) The client closes the connection to the server
+
+Steps 2 and 3 may be repeated multiple times before the connection is closed.
+
+When using the low level networking API, one will use the sockets to establish connections, send requests and receive responses.A socket is one end-point of a two way connection and the client will have a socket and the server will have a two way socket.
+
+When you have multiple clients connecting to the same server, they will use teh same port number but each client wll have its own socket and one will use the Socket class for the client socket and the ServerSocket class for the server's socket.
+
+-------------------------------------------
+Echoserver
+
+package com.timbuchalka;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class Main {
+
+    public static void main(String[] args) {
+	    try(ServerSocket serverSocket = new ServerSocket(5000)) {
+            Socket socket = serverSocket.accept();
+            System.out.println("Client Connected");
+            BufferedReader input = new BufferedReader(
+                    new InputStreamReader(socket.getInputStream()));
+            PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
+
+            while(true) {
+                String echoString = input.readLine();
+                if(echoString.equals("exit")) {
+                    break;
+                }
+                output.println("Echo from server: " + echoString);
+            }
+
+
+        } catch(IOException e) {
+            System.out.println("Server exception " + e.getMessage());
+        }
+    }
+}
+
+------------------------------------------------------------------------
+Echoclient
+
+
+package com.timbuchalka;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        try (Socket socket = new Socket("localhost", 5000)) {
+            BufferedReader echoes = new BufferedReader(
+                    new InputStreamReader(socket.getInputStream()));
+            PrintWriter stringToEcho = new PrintWriter(socket.getOutputStream(), true);
+
+            Scanner scanner = new Scanner(System.in);
+            String echoString;
+            String response;
+
+            do {
+                System.out.println("Enter string to be echoed: ");
+                echoString = scanner.nextLine();
+
+                stringToEcho.println(echoString);
+                if(!echoString.equals("exit")) {
+                    response = echoes.readLine();
+                    System.out.println(response);
+                }
+            } while(!echoString.equals("exit"));
+
+        } catch (IOException e) {
+            System.out.println("Client Error: " + e.getMessage());
+
+        }
+    }
+}
+---------------------------------------------------------------
+URL Connections and Input Stream Reader
+
+package com.timbuchalka;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        try (Socket socket = new Socket("localhost", 5000)) {
+            BufferedReader echoes = new BufferedReader(
+                    new InputStreamReader(socket.getInputStream()));
+            PrintWriter stringToEcho = new PrintWriter(socket.getOutputStream(), true);
+
+            Scanner scanner = new Scanner(System.in);
+            String echoString;
+            String response;
+
+            do {
+                System.out.println("Enter string to be echoed: ");
+                echoString = scanner.nextLine();
+
+                stringToEcho.println(echoString);
+                if(!echoString.equals("exit")) {
+                    response = echoes.readLine();
+                    System.out.println(response);
+                }
+            } while(!echoString.equals("exit"));
+
+        } catch (IOException e) {
+            System.out.println("Client Error: " + e.getMessage());
+
+        }
+    }
+}
+
+---------------------------------------
+
+    System.out.println ("Scheme = " + uri.getScheme ());
+    System.out.println ("Scheme-specific part = " + uri.getSchemeSpecificPart());
+    System.out.println ("Authority = " + uri.getAuthority());
+    System.out.println ("User Info = " + uri.getUserInfo());
+    System.out.println ("Host = " + uri.getHost());
+    System.out.println ("Port = " + uri.getPort());
+    System.out.println ("Path = " + uri.getPath());
+    System.out.println ("Query = " + uri.getQuery());
+    System.out.println ("Fragment = " + uri.getFragment());
+---------------------------------------------------------------------
+
