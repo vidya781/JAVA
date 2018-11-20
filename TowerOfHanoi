@@ -1,0 +1,45 @@
+Tower of Hanoi is a mathematical puzzle where we have three rods and n disks. The objective of the puzzle is to move the entire stack to another rod, obeying the following simple rules:
+1) Only one disk can be moved at a time.
+2) Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack i.e. a disk can only be moved if it is the uppermost disk on a stack.
+3) No disk may be placed on top of a smaller disk.
+
+take 2 discs for example:
+
+Let rod 1 = 'A', rod 2 = 'B', rod 3 = 'C'.
+
+Shift first disk from A to B
+Shift second disk from A to C
+Shift first disk from B to C
+
+So basically there are 3 steps
+
+The pattern that one is getting is:
+
+Shift 'n-1' disks from 'A' to 'B'
+Shift last disk from 'A' to 'C'
+Shift n-1 disk from 'B' to 'C'
+
+Java program for the same
+
+class hanoitower
+{
+   // recursive function to solve the tower of hanoi
+  static void towerofhanoi(int n, char from_rod, char to_rod, char aux_rod)
+  {
+    if(n==1)
+    {
+       System.out.println("Move disk 1 from rod " + from_rod + "to rod " + to_rod);
+       return;
+     }
+    towerofhanoi(n-1,from_rod,aux_rod,to_rod);
+    System.out.println("Move disk" + n + "from rod" + from_rod + " to rod " + to rod);
+    towerofhanoi(n-1,aux_rod,to_rod,from_rod);
+   }
+// driver method
+
+public static void main(String args[])
+{
+   int n = 4; // number of disks
+   towerofhanoi(n,'A','C','B');  // A, B and C are names of the rods
+  }
+}
