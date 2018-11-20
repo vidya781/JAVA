@@ -1,0 +1,35 @@
+Given N and M, task is to find whether numbers 1 to N can be divided into 2 sets such that the absolute
+absolute difference between the sum of 2 sets is M and gcd of the sum of two sets is 1
+
+class findpair
+{
+   static int GCD(int a, int b)
+   {
+      return b == 0 ? a: GCD(b,a % b);
+    }
+
+
+   static boolean isSplittable(int n, int m)
+   {
+     int total_sum = (n * (n + 1))/2;
+     int sum_s1 = (total_sum + m) / 2;
+     int sum_s2 = total-sum - sum_s1;
+     int (total_sum < m)
+          return false;
+     if (sum_s1 + sum_s2 == total_sum && sum_s1 - sum_s2 == m)
+        return (GCD(sum_s1,sum_s2) == 1);
+     return false;
+   }
+
+   public static void main(String args[])
+   {
+     int n = 5, m = 7;
+     if(isSplittable(n,m))
+        System.out.println("yes");
+     else
+        System.out.println("No");
+    }
+}
+
+
+     
