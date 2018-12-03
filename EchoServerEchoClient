@@ -28,12 +28,12 @@ Steps 2 and 3 may be repeated multiple times before the connection is closed.
 
 When using the low level networking API, one will use the sockets to establish connections, send requests and receive responses.A socket is one end-point of a two way connection and the client will have a socket and the server will have a two way socket.
 
-When you have multiple clients connecting to the same server, they will use teh same port number but each client wll have its own socket and one will use the Socket class for the client socket and the ServerSocket class for the server's socket.
+When you have multiple clients connecting to the same server, they will use the same port number but each client wll have its own socket and one will use the Socket class for the client socket and the ServerSocket class for the server's socket.
 
 -------------------------------------------
 Echoserver
 
-package com.timbuchalka;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -70,8 +70,6 @@ public class Main {
 ------------------------------------------------------------------------
 Echoclient
 
-
-package com.timbuchalka;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -112,7 +110,6 @@ public class Main {
 ---------------------------------------------------------------
 URL Connections and Input Stream Reader
 
-package com.timbuchalka;
 
 import java.io.BufferedReader;
 import java.io.IOException;
