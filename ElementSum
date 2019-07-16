@@ -16,3 +16,19 @@ public class SumArray
        }  // End main
      }  //end class SumArray
         
+// Also demonstrating the enhanced for statement
+
+public class EnhancedForTest
+{
+  public static void main(String[] args)
+  {
+    int[] array = {87,68,97,100,83,78,86,91,77,85};
+    int total = 0;
+    
+    //add each element's value to the total
+    for(int number: array)
+        total += number;
+        
+    System.out.printf("Total of array elements: %d\n",total);
+    } //end main
+  } //end class EnhancedForTest
