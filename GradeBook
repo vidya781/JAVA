@@ -1,0 +1,134 @@
+This example which is adapted from Deitel is basically to show one important aspect of software engineering as well as an amalgamation
+of concepts.
+
+Please follow along:
+
+We need to perform several operations on the marks obtained by students in a class. 
+
+public class Gradebook
+{
+   private String courseName;
+   private int[] grades;
+   
+   public GradeBook(String name, int[] gradesArray)
+   {
+    courseName = name;
+    grades = gradesArray;  // Store grades
+   }
+   
+   public void setCourseName(String name)
+   {
+     courseName = name;
+   }
+   
+   public String getCourseName()
+   {
+     return courseName;
+   }
+   
+   public void displayMessage()
+   {
+     System.out.printf("Welcome to the grade Book for \n %s!\n\n",
+     getCourseName() );
+    }
+   public void processGrades()
+   {
+     outputGrades();
+     
+     System.out.printf("\n Class average is % .2f\n", getAverage());
+     
+     System.out.printf("Lowest Grade is %d\n Highest grade is %d\n\n",
+         getMinimum(), getMaximum() );
+         
+     outputBarChart();
+    }
+    
+    public int getMinimum()
+    {
+      int lowGrade = grades[0];
+      
+      for(int grade : grades)
+      {
+        if ( grade < lowGrade)
+            lowGrade = grade;
+       }
+       
+       return lowGrade;
+      }
+      
+    public int getMaximum()
+    {
+      int highGrade = grades[0];
+      
+      for(int grade:grades)
+      {
+        if ( grade > highGrade)
+            higherGrade = grade;
+      }
+      
+      return highGrade;
+     }
+     
+    public double getAverage()
+    {
+      int total = 0;
+      for(int grade:grades)
+          total += grade;
+          return (double) total/grades.length;
+      }
+   public void outputBarChart()
+   {
+     System.out.println("Grade Distribution:");
+     int[] frequency = new int[11];
+     
+     for(int grade : grades)
+        ++frequency[grade/10];
+     for(int count = 0; count < frequency.length; count++)
+     {
+       if(count == 10)
+          System.out.printf(" %5d : ", 100);
+       else
+          System.out.printf(" %02d-%02d:",count*10,count*10 + 9);
+      
+      for(int stars = 0; stars < frequency[count]; stars++)
+          System.out.print("*");
+      System.out.println();
+      }
+   }
+      
+    public void outputGrades()
+    {
+      System.out.println("The Grades are : \n");
+      
+      for(int student = 0; student < grades.length; student++)
+          System.out.printf(" student %2d: %3d\n",student + 1, grades[student + 1]);
+        }
+     }
+  
+  A test harness is responsible for creating an object of the class being tested and providing it with data.
+  Test data can have many sources; it can come from array intializer, it can come from user at the keyboard,
+  it can come from a file, or it can come from a network. After passing this data to the class constructor,
+  in order to instantiate the object, the test harness should call upon the object to test its methods and 
+  manipulating the data. Gathering the data in the test harness like this allows the class to manipuate the data
+  from several sources.
+  
+  public class GradeBookTest
+  {
+     public static void main(String[] args)
+     {
+        int[] gradesArray = { 87, 78, 69, 95, 100, 78, 81, 91, 76, 85};
+        
+        Gradebook myGradeBook = new GradeBook("CS101 Introduction to Java Programming", gradesArray);
+        myGradeBook.displayMessage();
+        myGradeBook.processGrades();
+      }
+    }
+    
+        
+         
+  
+  
+  
+     
+         
+   
