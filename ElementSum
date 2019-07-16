@@ -32,3 +32,17 @@ public class EnhancedForTest
     System.out.printf("Total of array elements: %d\n",total);
     } //end main
   } //end class EnhancedForTest
+
+
+When would one use the enhanced for construct like in the above case?
+
+Note that the enhanced for can only be used to obtain the array elements, not modify them.
+If the program needs to modify the elements, use the traditional counter controlled for statement
+
+In this case,totaling the integers in an array requires only access to the element values - the index of each element is irrelevant.
+Typical scenario: Whenever code looping through an array does not require access to the counter indicating the index of the current array 
+element
+
+
+
+
