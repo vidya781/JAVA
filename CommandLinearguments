@@ -1,0 +1,35 @@
+The objective of this program is to highlight command line arguments. When the particular application is executed, Java passes the
+command line arguments that appear after the class Name in the java command to the application's main method as Strings in the array args.
+The number of CL arguments is obtained by accessing the array's length attributes.
+
+The command java initArray 5 0 4 passes 3 arguments to the application InitArray. CL arguments are separated by white space.
+args[0] contains the String "5"
+args[1] contains the String "0"
+args[2] contains the String "4"
+
+It is important to note that instead of the number directly, the String is passed as an argument.
+If we specify the argument in the program, if the length of the argmuments is different, then an error is generated
+and the program terminates.
+
+//Initializing an array using Command Line Arguments
+
+public class InitArray
+{
+  public static void main(String[] args)
+  {
+    if(args.length != 3)
+        System.out.println("Error: Please re-enter the entire command, including \n" + "an array size, initial value and increment.");
+    else
+        { // get array size from first CL argument
+            int arrayLength = Integer.parseInt(args[0]);
+            int[] array = new int[arrayLength];
+            int initialValue = Integer.parseInt(args[1]);
+            int increment = Integer.parseInt(args[2]);
+            
+            for( int counter = 0; counter < array.length; counter++)
+                System.out.printf("%5d%8d\n",counter,array[counter]);
+          } // end else
+       } // end main
+    } // end class initArray
+        
+            
