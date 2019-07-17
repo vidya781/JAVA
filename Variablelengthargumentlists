@@ -1,0 +1,39 @@
+The objective of this program is to demonstrate variable length argument lists.Adapted from Dietel.
+
+Sometimes one may need to write methods that are flexible in that one does not have prior knowledge of the number of variables
+one could encounter. In such a situation, variable length argument lists are employed.
+
+With variable-length argument lists, you can create methods that receive an unspecifiednumber of arguments. A type followed by an 
+ellipsis (...) in a method’s parameter list indicates that the method receives a variable number of arguments of that particular type.
+This use of the ellipsis can occur only once in a parameter list, and the ellipsis, together with its type, must be placed at the end 
+of the parameter list. While you can use method overloading and array passing to accomplish much of what is accomplished with variable
+length argument lists, using an ellipsis in a method’s parameter list is more concise.
+
+Some notes: Placing an ellipsis indicating a variable-length argument list in the middle of a parameter
+list is a syntax error. An ellipsis may be placed only at the end of the parameter list.
+
+public class VarargsTest
+{
+  // calculate average
+  public static double average(double...numbers)
+  {
+    double total = 0.0;  // initialize total
+    for(double d:numbers)
+        total += d;
+    return total/numbers.length;
+   }
+ 
+ public static void main(String[] args)
+ {
+   double d1 = 10.0;
+   double d2 = 20.0;
+   double d3 = 30.0;
+   double d4 = 40.0;
+   
+   System.out.printf("d1 = %.1f\nd2 = %.1f\nd3 = % .1f\nd4 = %.1f\n\n",d1,d2,d3,d4);
+   System.out.printf("Average of d1 and d2 is %.1f\n",average(d1,d2));
+   System.out.printf("Average of d1,d2 and d3 is %.1f\n",average(d1,d2,d3));
+   System.out.printf("Average of d1,d2,d3 and d4 is %.1f\n",average(d1,d2,d3,d4));
+   }
+ }
+ 
