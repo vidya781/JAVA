@@ -1,0 +1,43 @@
+The objective of this program is to demonstrate the time object via an application.Adapted from Deitel.
+
+public class Time1test
+{
+  // create and initialize a Time1 object
+  
+  Time1 time = new Time1(); // invokes the Time1 constructor
+  
+  // Output the string representations of the Time class
+  
+  System.out.print( " The initial universal time is: ");
+  System.out.println(time.toUniversalString());
+  System.out.print( " The initial standard time is:  ");
+  System.out.println( time.toString() );
+  System.out.println();  //output a blank line
+  
+  // change time and output the updated time
+  
+  time.setTime( 13, 27, 7);
+  System.out.print(" Universal Time after set Time is: ");
+  System.out.println(time.toUniversalString() );
+  System.out.print( " Standard time after settime is:  ");
+  System.out.println( time.toString());
+  System.out.println();
+  
+  try
+  {
+     time.setTime(99,99,99); // all values out of range
+  } 
+  catch ( IllegalArgumentException e)
+  {
+    System.out.printf( " Exception: %s\n\n", e.getMessage());
+  }
+  
+  // display time after an attempt to set invalid values
+  System.out.println( " After attempting invalid settings: ");
+  System.out.print(" Universal Time:  ");
+  System.out.println( time.toUniversalString() );
+  System.out.print( " Standard Time: ");
+  System.out.println(time.toString());
+  }  // end main
+} // end class Time1test
+  
