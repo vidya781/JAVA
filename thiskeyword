@@ -1,0 +1,48 @@
+Every object can access a reference to itself with the keyword 'this'. When a non-static method is called for a particular object,
+the method's body implicitly uses keyword this to refere to the object's instance variables and other methods.
+
+These next few lines of code demonstrate this concept.
+
+public class ThisTest
+{
+  public static void main( String[] args)
+  {
+     SimpleTime time = new SimpleTime(15,30,19);
+     System.out.println( time.buildString());
+  }   // end main
+}  // end class ThisTest
+
+
+class SimpleTime
+{
+  private int hour;  //0-23
+  private int minute; //0-59
+  private int second; //0-59
+  
+  // If the constructor uses parameter names identical to instance variable names, the "this" reference is required to distinguish
+  between the names
+  
+  public SimpleTime(int hour, int minute, int second)
+  {
+    this.hour = hour;
+    this.minute = minute;
+    this.second = second;
+  }
+  
+  public String buildString()
+  {
+    return String.format("%24s:%s\n%24s:%s","this.toUniversalString()",this.toUniversalString(),"toUniversalString()",toUniversalString());
+  }
+  
+  // convert to String in universal-time format (HH:MM:SS)
+  public String toUniversalString()
+  {
+    // "this" is not required here to access instance variables, as method does not have local variables with same names as instance 
+    variables
+    
+    return String.format("%02d:%02d:%02d",this.hour, this minute,this.second);
+    
+    }  // end method to UniversalString
+  }  // end class SimpleTime
+  
+    
