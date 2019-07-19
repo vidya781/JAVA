@@ -1,0 +1,42 @@
+The objective of this program is to demonstrate a class that refers to other objects.
+
+public class Employee
+{
+  private String firstname;
+  private String lastname;
+  private Date birthdate;
+  private Date hiredate;
+  
+  // constructor to initialize name, birthdate and hiredate
+  
+  public Employee(String first, String last, Date dateofbirth, Date dateofhire)
+  {
+      firstname = first;
+      lastname = last;
+      birthdate = dateofbirth;
+      hiredate = dateofhire;
+   }  // end employee constructor
+   
+   // convert Employee to String class
+   
+   public String toString()
+   {
+      return String.format( " %s, %s Hired: %s Birthday: %s", lastname, firstname, hiredate, birthdate);
+   }  // end method toString
+ } // end class Employee
+ 
+ // Now a driver program
+ 
+ public class EmployeeTest
+ {
+   public static void main(String[] args)
+   {
+      Date birth = new Date(7,23,1959);
+      Date hire = new Date(3,12, 1983);
+      Employee employee = new Employee("Rob","Weyl",birth,hire);
+      
+      System.out.println( employee );
+     } //end main
+  } // end class EmployeeTest
+   
+      
