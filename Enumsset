@@ -1,0 +1,24 @@
+This program builds on the Enum program and uses the enum constants in order to execute the same.
+
+import.java.Enumset;
+
+public class EnumTest
+{
+   public static void main(String[] args)
+   {
+     System.out.println("All books\n");
+     
+     // print all books in enumBook
+     
+     for(Book book : book.values())
+        System.out.printf(" %-10s%-45s%s\n",book, book.getTitle(),book.getCopyrightYear() );
+        
+     System.out.println("\nDisplay a range of enum constants:\n");
+     
+     // print first few books
+     for ( Book book : EnumSet.range( Book.JHTP,Book.VBHTP ) )
+         System.out.printf( " %-10s%-45s%s\n",book,book.getTitle(),book.getCopyrightYear() );
+     } // end main
+   } // end class enumTest
+   
+   
