@@ -1,0 +1,47 @@
+The objective of this program is to demonstrate the use of enums in a real program.
+
+
+// Declaring an enum type with constructor and explicit instance fields and accessors for these fields
+
+public enum Book
+{
+  // declare constants of enum type
+  
+  JTHTP( " Java how to program ", "2012"),
+  CHTP( " C how to program ", "2007"),
+  PHPHTP(" PHP how to program", "2014"),
+  ANHTP( " Android how to program","2017"),
+  VBHTP( " Visual Basic how to program", "2013"),
+  CSHARPHTP( " Visual C# how to program", "2011");
+  
+  // instance fields
+  
+  private final String title; // book title
+  private final String copyrightYear; // copyright year
+  
+  // enum constructor
+  
+  Book( String bookTitle, String year)
+  {
+    title = bookTitle;
+    copyrightYear = year; 
+    } // end enum book constructor
+    
+  // accessor for field title
+  
+  public String getTitle()
+  {
+     reurn title;
+  }
+  
+  // accessor for field copyRightYear
+  
+  public String getcopyrightYear()
+  {
+    return copyrightYear;
+  }   // end method getCopyRightYear
+}  // end enum Book  
+
+
+
+  
