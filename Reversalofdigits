@@ -1,0 +1,29 @@
+A program that takes an integer and returns the integer corresponding to the digits of the input written in reverse order. 
+For example, the reverse of 42 is 24 and the reverse of-314 is -413
+
+The key to the solution is to think in terms of the Integer presented as a string and then work on that.
+
+Some ideas and approaches:
+
+The BF approach is to convert the input to a string, and then compute the reverse from the string by traversing it back to front. For
+example, (1100)2 is the decimal number of 12.The answer for(1100)2 can be computed by traversing the string "12" in reverse order.
+
+Consider the input 1142. How do we extract the end digit 2? Take the input mod 10.
+The remaining digits of the result are the reverse of 1142/10 = 114. Generalizing, let the result be k.If k >= 0, then k mod 10 is the 
+most significant digit of the result and subsequent digits are the reverse of k/10. 
+
+Now iteratively update the result and the input as 2 and 114, then 24,11, 241 and 1, then 2411.
+
+For general k, we record the sign, solve the problem for |k|, and then apply the sign to the result.
+
+public static long reverse(int x){
+
+long result = 0;
+long xremaining = Math.abs(x);
+while( xremaining != 0){
+    result = result * 10 + xremaining % 10;
+    xremaining /= 10;
+  }
+ return x < 0 ? -result : result;
+ }
+ TC : O(n) where n is the number of digits in k.
