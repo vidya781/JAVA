@@ -1,0 +1,44 @@
+Check if a decimal integer is a palindrome. Program should return true for the inputs 0,1,7,11,121,333,2147447412 and false for
+the inputs -1,12,100 and 214783647.
+
+Some ideas and suggestions:
+
+If the input is negative, then its representation as a decimal string cannot be palindromic since it begins with a - symbol.
+
+BF approach: Convert the input into a string and then iterate through the string, pairwise comparing digits starting from the least 
+significant digit and the most significant digit, and working inwards, stopping in case tehre is a mismatch.
+
+The time and space complexity are O(n) where n is the number of digits in the input.
+
+One can avoid the O(n) space complexity used by teh string represenattion by directly extracting the digits from the input.
+The number of digits, n, in the input's string representation is the log(base 10) of the input value, x.
+
+To be precise n = [log x] ( to base 10) + 1.
+
+Therefore the least significant digit is xmod10, and the most significant digit is x/10^(n-1). 
+
+Consider a number like 151751, we could compare the first and last digits 1 and 1. Since these are equal, we compare the inner part 5175. The 
+first and last part of this construct is 5 and 5 and so we move inward to find 17. The first and last parts are unequal and hence false is 
+returned.
+
+If the number was 147741, the final comparison would be of 7 with 7 itself and hence true would be returned.
+
+public static boolean isPalindromeNumber(int x){
+    if( x < 0) {
+        return x == 0;
+    }
+ final int numDigits = (int)(Math.floor(Math.log10(x))) + 1;
+ int msdMask = (int)Math.pow(10,numDigits - 1);
+ for(int i = 0; i < (numDigits / 2); ++i){
+     if(x / msdMask != x % 10) {
+         return false;
+      }
+      x %= msdMask;  // Remove the most significant digit of x
+      x /= 10;  // Remove the least significant digit of x
+      msdMask /= 100;
+    }
+    return true;
+   }
+   
+   TC : O(n) and SC:O(1)
+   
