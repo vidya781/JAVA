@@ -1,0 +1,34 @@
+Remove duplicates from a sorted list:
+Input is a singly linked list of integers in the sorted order, and remove duplicates from it. The list should be sorted.
+
+L --> 2 ---> 2 --->3-->5--->7--->11-->11 X (before removing duplicates)
+
+L ---> 2 ---> 3 --->5 --->7--->11 X ( after removing duplicates)
+
+BF algorithm: Create a new list, using a hash table to test if a value has already been added to the new list.
+
+Also, another approach would be to search in the new list itself to see if the candidate value already is present. If the length of 
+the list is n, then the first approach requires O(n) additional space for the hash table, and the second requires O(n)^2 time to do
+the lookups. Both approaches must allocate n nodes for the new list.
+
+However a better approach would be to exploit the already sorted nature of the list. As one traverses the list, one removes all successive nodes 
+with the same value as the current node.
+
+public static ListNode<Integer> removeDuplicates(ListNode<Integer> L){
+ ListNode<Integer> iter = L;
+ while(iter != null){
+   // use nextDistinct to find the next distinct value
+   ListNode<Integer> nextDistinct = iter.next;
+   while(nextDistinct != null && nextDistinct.data == iter.data){
+       nextDistinct = nextDistinct.next;
+    }
+    iter.next = nextDistinct;
+    iter = nextDistinct;
+   }
+  return L;
+  }
+Amortized analysis required here. A single node may logically take more time to process ( more than O(1) time) if there are successive nodes with 
+the same value.A clearer picture for the time complexity is that each link is traversed once, so the TC is O(n). Space complexity is O(1).
+
+An offshoot: Let me be a positive integer and L be a sorted singly linked list of intehers. For each integer k, if k appears more than m
+times in L, remove all the nodes from L containing k.
