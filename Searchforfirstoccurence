@@ -1,0 +1,42 @@
+Write a method that takes a sorted array and a key and returns the index of teh first occurence of that key in the array. Return -1
+if the key does not appear in the array.
+
+-14   10   2     108    108    243    276   276   276    401
+A[0] A[1] A[2]   A[3]   A[4]   A[5]  A[6]   A[7]  A[8]   A[9]
+
+What would be a naive approach to such a problem?
+
+Use Binary Search to find the index of any element equal to the key, k. If k is not presnet in teh array, -1 is returned. After finding an 
+element, one traverses backwards from it to find the first occurence of that element. Binary Search takes time O(logn),where n is the
+number of entries in the array. Traversing backwards takes O(n) time in the worst case--consider the case where the entries are equal 
+to k.
+
+The main idea of Binary Search is to maintain a set of candidate solutions. In the current scenario, if we know that the element at the 
+first index i is indeed k, we do not yet know if i is the first element equal to k. What we do know id that no subsequent elements can
+be the first one. Hence we remove all elements with index i + 1 or more from the potential candidates so as to reduce the sample space
+available to us.
+
+Now apply the logic systematically to the given example with k = 108. We start with all the indices as candidates ie with [0,9]. The 
+midpoint index, 4 contains k. Therefore we now update the candidate set to [0,3], and record 4 as an occurrence of k. The next midpoint
+is 1, and this index contains -10. So the candidature is updated to [2,3]. The value at the midpoint 2 is 2, so we update the candidature
+to [3,3]. Since the value at the midpoint is 108, we update the first seen occurrence of k to 3. Now the interval is [3,2]  and the 
+intersection of this is empty, terminating the search -- the result is 3.
+
+public static int searchFirstOfK(List<Integer> A, int k) {
+  int left = 0, right = A.size()-1, result = -1;
+  
+  while(left <= right){
+    int mid = left + ((right-left)/2);
+    if (A.get(mid) > k){
+       right = mid - 1;
+     } else if (A.get(mid)==k){
+        result = mid;
+        // Nothing to the right of mid can be the first occurence of k
+        right = mid - 1;
+      } else { // A.get(mid) < k)
+         left = mid + 1;
+      }
+    }
+    return result;
+   }
+   TC: O(logn) as each iteration reduces the size of the candidate sets by half.
