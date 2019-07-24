@@ -1,0 +1,36 @@
+An efficient algorithm that takes a sorted array of distinct integers, and returns an index i such that the elemnt at index i equals i.
+For example, if the input is <-2,0,2,3,6,7,9> the algorithm should return 2 or 3.
+
+A BF approach is to iterate through the array, testing whether the ith entry equals i. TC is O(n) because it has to traverse the entire
+length of the array.
+
+However the BF aproach does not take advantage of the fact that the array is sorted and consists of distinct elements. In particular,
+note that the difference between an antry and its index increases by at least 1 as we iterate through the array A. ( Call the array A).
+If A[j] > j, then no entry after j can satisfy the given criterion. As each element in the array is at least 1 greater than the previous 
+element. Also if A[j] < j, no entry before j can satisfy the given criterion.
+
+We employ a BS type algorithm for finding an i such that A[i] = i. A simpler approach is to search the secondar array B that is potentially
+derived from A whose ith entry is A[i]-i fo 0, which is just ordinary binary search. No need to actually create the secondary array, we can simply use
+A[i] - i wherever B[i] is referenced.
+
+The secondary array B in the above example is <-2,-1,0,0,2,2,3>. Binary search for 0 returns the correct result ie either of index 2 or 3.
+
+public static int searchEntryEqualToItsIndex(List<Integer> A) {
+  int left = 0, right = A.size()-1;
+  while(left <= right) {
+      int mid = left + ((right - left) / 2);
+      int difference = A.get(mid)-mid;
+      // if the difference is 0 we have our desired element and the index
+      if ( difference == 0) {
+          return mid;
+      } else if (difference > 0) {
+         right = mid - 1;
+      } else { // difference < 0
+         left = mid + 1;
+      }
+    }
+    return -1;
+   }
+   
+   TC: O(logn) where n is the length of A.
+      
