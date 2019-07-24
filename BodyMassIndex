@@ -1,0 +1,58 @@
+The algorithm below demonstrates how to calculate the body mass index also called BMI. 
+
+Mathematically BMI = Weight/(height)^2   // attributed to Adolphe Quetelet
+
+Mass is in kilograms, Height is in meters.
+
+Health risks associated with BMI are:
+1) Underweight < 18.5
+2) Normal weight >= 18.5 and < 25
+3) Overweight >= 25 and < 30
+4) Obese >= 30
+
+A conversion is in order from pounds to kilograms ( 1 kg = 2.2 pounds)
+Convert feet and inches to meters. If everything is in inches, multiply by 0.0254 to convert inches to meters.
+
+Algorithm to calculate BMI
+
+1) Read the weight in pounds to the variable in pounds
+2) Read the height in feet to the variable in feet
+3) Read the additional height in inches into the variable inches
+4) Set the variable heightMeters to the value ((feet*12) + inches) * 0.0254
+5) Set the variable mass to the value pounds / 2.2
+6) Set the variable BMI to the value mass/ (heightMeters) * (heightMeters)
+7) Output BMI
+8) If BMI < 18.5 then output 'Underweight'
+9) Else if BMI < 25, then output 'Normal Weight'
+10) Else if BMI < 30, then output 'Overweight'
+
+import java.util.Scanner;
+public class BMI
+{
+public static void main(String[] args)
+ {
+ Scanner keyboard = new Scanner(System.in);
+     int pounds, feet, inches;
+     double heightMeters, mass, BMI;
+     System.out.println("Enter your weight in pounds.");
+     pounds = keyboard.nextInt();
+     System.out.println("Enter your height in feet" + "followed by a space" + "then additional inches.");
+     feet = keyboard.nextInt();
+     inches = keyboard.nextInt();
+     heightMeters = ((feet * 12) + inches) * 0.0254;
+     mass = (pounds / 2.2);
+     BMI = mass / (heightMeters * heightMeters);
+     System.out.println("Your BMI is " + BMI);
+     System.out.print("Your risk category is ");
+     if (BMI < 18.5)
+         System.out.println("Underweight.");
+     else if (BMI < 25)
+         System.out.println("Normal weight.");
+     else if (BMI < 30)
+         System.out.println("Overweight.");
+     else
+         System.out.println("Obese.");
+    }
+  }
+
+
