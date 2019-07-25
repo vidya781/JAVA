@@ -32,3 +32,4 @@ while(i < j) {
  }
  
  
+O(1) per character, so TC is O(n) where n is the length of s.
