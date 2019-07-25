@@ -1,0 +1,220 @@
+Consider the following UML diagram
+
+                          
+                          ------------------- Employee------------------------
+                          |               |                              |
+                          |               |                              |
+                          |               |                              |
+                SalariedEmployee        Commission Employee           Hourly Employee    
+                                          |
+                                          |
+                                        BasePlusCommissionEmployee
+                                        
+  EmployeeClass hierarchy UML diagram
+  
+  // Employee abstract superclass.
+{
+    private String firstName;
+    private String lastName;
+    private String socialSecurityNumber;
+
+// three-argument constructor
+   public Employee( String first, String last, String ssn )
+   
+  {    firstName = first;
+       lastName = last;
+       socialSecurityNumber = ssn;
+} // end three-argument Employee constructor
+
+// set first name
+public void setFirstName( String first )
+{
+ firstName = first; // should validate
+} // end method setFirstName
+
+ // return first name
+ public String getFirstName()
+ {
+ return firstName;
+ } // end method getFirstName
+ 
+ 
+ // set last name
+ public void setLastName( String last )
+{
+  lastName = last; // should validate
+ } // end method setLastName
+
+// return last name
+public String getLastName()
+ {
+ return lastName;
+ } // end method getLastName
+
+ // set social security number
+ public void setSocialSecurityNumber( String ssn )
+{
+socialSecurityNumber = ssn; // should validate
+ } // end method setSocialSecurityNumber
+
+// return social security number
+public String getSocialSecurityNumber()
+{
+ return socialSecurityNumber;
+} // end method getSocialSecurityNumber
+
+// return String representation of Employee object
+@Override
+public String toString()
+ {
+return String.format( "%s %s\nsocial security number: %s",
+ getFirstName(), getLastName(), getSocialSecurityNumber() );
+ } // end method toString
+
+} // end abstract class Employee
+
+// abstract method overridden by concrete subclasses
+public abstract double earnings();
+
+// SalariedEmployee concrete class extends abstract class Employee.
+
+{
+ private double weeklySalary;
+
+// four-argument constructor
+public SalariedEmployee( String first, String last, String ssn,double salary )
+{
+   super( first, last, ssn ); // pass to Employee constructor
+   setWeeklySalary( salary ); // validate and store salary
+} // end four-argument SalariedEmployee constructor
+
+// set salary
+public void setWeeklySalary( double salary )
+ {
+ if ( salary >= 0.0 )
+    baseSalary = salary;
+ else
+   throw new IllegalArgumentException("Weekly salary must be >= 0.0" );
+ } // end method setWeeklySalary
+
+// return salary
+  public double getWeeklySalary()
+   {
+    return weeklySalary;
+ } // end method getWeeklySalary
+
+} // end class SalariedEmployee
+
+public class SalariedEmployee extends Employee
+
+Employee.
+{
+  private double grossSales; // gross weekly sales
+   private double commissionRate; // commission percentage
+
+// five-argument constructor
+public CommissionEmployee( String first, String last, String ssn,double sales, double rate )
+{
+  super( first, last, ssn );
+  setGrossSales( sales );
+ setCommissionRate( rate );
+} // end five-argument CommissionEmployee constructor
+
+// set commission rate
+public void setCommissionRate( double rate )
+{
+ if ( rate > 0.0 && rate < 1.0 )
+    commissionRate = rate;
+else
+   throw new IllegalArgumentException(
+  "Commission rate must be > 0.0 and < 1.0" );
+} // end method setCommissionRate
+
+// return commission rate
+public double getCommissionRate()
+{
+ return commissionRate;
+} // end method getCommissionRate
+
+// set gross sales amount
+public void setGrossSales( double sales )
+ {
+   if
+     (sales >= 0.0 )
+     grossSales = sales;
+  else
+      throw new IllegalArgumentException(
+ "Gross sales must be >= 0.0" );
+ } // end method setGrossSales
+
+ // return gross sales amount
+ public double getGrossSales()
+ {
+   return grossSales;
+} // end method getGrossSales
+
+// end class CommissionEmployee
+
+// calculate earnings; override abstract method earnings in Employee
+@Override
+public double earnings()
+{
+return getCommissionRate() * getGrossSales();
+} // end method earnings
+// return String representation of CommissionEmployee object
+@Override
+public String toString()
+{
+   return String.format( "%s: %s\n%s: $%,.2f; %s: %.2f",
+   "commission employee", super.toString(),
+   "gross sales", getGrossSales(),
+   "commission rate", getCommissionRate() );
+  }  // end methodToString
+}  // end class CommissionEmployee
+
+public class BasePlusCommissionEmployee extends CommissionEmployee
+{
+    private double baseSalary; //base salary per week
+    
+    //six argument constructor
+    public BasePlusCommissionEmployee(String first, String last, String ssn, double sales, double rate, double salary)
+    {
+       super(first,last,ssn, sales,rate);
+       setBaseSalary(salary); // validate and store base salary
+    } // end six argument BasePlusCommissionEmployee constructor
+    
+    
+    // set base salary
+    public void setBaseSalary(double salary)
+    {
+       if(salary >= 0.0)
+          baseSalary = salary;
+       else
+           throw new IllegalArgumentException("Base salary must be >= 0.0");
+     } // end method setBaseSalary
+     
+     // return base salary
+     public double getBaseSalary()
+     {
+        return baseSalary;
+     }  // end method getBaseSalary
+     
+     //calculate earnings: override method earnings in CommissionEmployee
+     @override
+     public double earnings()
+     {
+        return getBaseSalary() + super.earnings();
+      } // end method earnings
+      
+     // return String representation of BasePlusCommissionEmployee object
+     
+@Override
+public String toString()
+{
+  return String.format( "%s %s; %s: $%,.2f",
+  "base-salaried", super.toString(),
+  "base salary", getBaseSalary() ); 
+ } // end methodtoString
+} end class BaseplusCommissionEmployee
+
+
