@@ -1,0 +1,78 @@
+The program below demonstrates a simple concept: No exception handling in a case of division between two numbers. The program is self 
+explanatory.
+
+// Integer division without exception handling
+
+import java.util.Scanner;
+
+public class DivideByZeroNoExceptionHandling
+{
+    // demonstrates throwing an exception when a divide by zero occurs
+    
+    public static int quotient( int numerator, int denominator)
+    {
+       return numerator / denominator ; // possible division by zero
+    }  // end method quotient
+    
+    public static void main(String[] args)
+    {
+       Scanner scanner = new Scanner(System.in); // scanner for input
+       
+       System.out.println(" Please enter an integer numerator: ");
+       int numerator = scanner.nextInt();
+       System.out.println(" Please enter an integer denominator: ");
+       int denominator = scanner.nextInt();
+       
+       int result = quotient( numertaor, denominator);
+       System.out.printf( "\n Result : %d / %d = %d\n",numertaor, denominator, result);
+       } // end main
+    } // end class DivideByZeroExceptionHandling
+    
+    The above program does not take into account that a string could be entered as a numerator or denominator or division by zero is possible.
+    We want the program to handle these exceptions also so we must make modifications to our program.
+    
+    // With exception handling the program looks like this:
+    
+    // Handling ArithmeticExceptions and InputMismatchExceptions.
+34
+import java.util.Scanner;
+56
+public class DivideByZeroWithExceptionHandling
+{
+
+// demonstrates throwing an exception when a divide-by-zero occurs
+  public static int quotient( int numerator, int denominator )
+ {
+    return numerator / denominator; // possible division by zero
+} // end method quotient
+
+public static void main( String[] args )
+{
+  Scanner scanner = new Scanner( System.in ); // scanner for input
+  boolean continueLoop = true; // determines if more input is needed
+  
+  do
+{
+try // read two numbers and calculate quotient
+{
+  System.out.print( "Please enter an integer numerator: " );
+      int numerator = scanner.nextInt();
+  System.out.print( "Please enter an integer denominator: " );
+     int denominator = scanner.nextInt();
+     int result = quotient( numerator, denominator );
+  System.out.printf( "\nResult: %d / %d = %d\n", numerator,denominator, result );
+     continueLoop = false; // input successful; end looping
+} // end try
+ catch ( InputMismatchException inputMismatchException )
+  {
+     System.err.printf( "\nException: %s\n",inputMismatchException );
+     scanner.nextLine(); // discard input so user can try again
+   System.out.println("You must enter integers. Please try again.\n" );
+     catch ( ArithmeticException arithmeticException )
+{
+    System.err.printf( "\nException: %s\n", arithmeticException );
+    System.out.println("Zero is an invalid denominator. Please try again.\n" );
+   } // end catch
+  } while ( continueLoop ); // end do...while
+   }  // end main
+}  // end class DivideByZeroWithExceptionHandling
