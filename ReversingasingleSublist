@@ -1,0 +1,31 @@
+Consider a singly Linked List as below:
+
+M ----> 11 -----> 3 -----> 5 ------> 7 ------> 2 
+
+A program which takes a singly linked List L and two integers s and f as arguments, and reverses the order of the nodes from the sthnode
+to the  fth node, both inclusive. The numbering begins at 1, ie...the head node is the first node.No additional Nodes.
+
+One approach to think about: Extract the sublist, reverse it and then splice it back in.Two passes over the sublist.
+
+The update can be performed with a single pass by combining the identification of the sublist with its reversal. Identify the
+start of sublist by using an iteration to get the sth node and its predecessor. Once the sth node is reached, we start the reversing
+process and keep counting. When we reach the fth node, we stop the reversion process and link the reverted section with the unreverted 
+sections.
+
+public static ListNode<Integer> reverseSubList(ListNode<Integer> L, int start, int finish){
+ListNode<Integer> dummyHead = new ListNode<>(0,L);
+ListNode<Integer> sublistHead = dummyHead;
+int k = 1;
+while(k++ < start) {
+   sublistHead = sublistHead.next;
+}
+// Reverse sublist
+ListNode<Integer> sublistIter = sublistHead.next;
+while(start++ < finish) {
+   ListNode<Integer> temp = sublistIter.next;
+   sublistIter.next = temp.next;
+   temp.next = subListHead.next;
+   sublistHead.next = temp;
+ }
+ return dummyHead.next;
+}
