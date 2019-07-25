@@ -1,0 +1,34 @@
+Define a palindromic string to be a string which when all the nonalphanumeric are removed reads the same front to back ignoring the case.
+Examples: "Able was I, ere I saw Elba!" "A man, a plan, a canal, Panama."
+
+Goal is to implement a function which takes as input a string s and returns rue if s is a palindromic string.
+
+One approach that we could think about is to create a reversed version of s, and compare it with s, skipping nonalphanumeric characters. 
+this requires additional space proportional to the length of s.
+
+One need not create the reverse. Rather, one can get the effect of the reverse of s by traversing s from right to left.
+
+Specifically, we use two indices to traverse the string, one forwards, the other backwards, skipping nonalphanumeric characters, performing 
+case-insensitive comparison on the alphanumeric characters. We return false as soon as there is a mismatch. If the indices cross, we have 
+verified palindromicity.
+
+public static boolean isPalindromic(String s) {
+// i moves forward and j moves backward
+
+int i = 0, j = s.length() - 1;
+while(i < j) {
+   // i and j both skip non-alphanumeric characters
+   while(!Character.isLetterOrDigit(s.charAtIi)) && i < j) {
+      ++i;
+    }
+    while(!Character.isLetterOrDigit(s.charAt(j)) && i < j) {
+      --j;
+    }
+    if(Character.toLowerCase(s.charAt(i++)) != Character.toLowerCase(s.charAt(j--)){
+       return false;
+    }
+  }
+  return true;
+ }
+ 
+ 
