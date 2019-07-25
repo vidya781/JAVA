@@ -1,0 +1,47 @@
+Consider that there are two sorted singly linked lists inwhich each node holds a number. Assume the lists are sorted i.e; numbers 
+in the lists appear in ascending order within each list. The merge of the two lists is a list consisting of the nodes of the two lists
+in which numbers appear in the ascending order.
+
+L1---->2 ------> 5 ------>7 X
+
+L2---->3------>11 X
+
+The above depicts two sorted lists
+
+R -->2 --->3---->5---->7--->11
+
+The aim is to write a program that takes two lists, assumed to be sorted and returns their average. The only field the program can change
+in a node is its next field.
+
+Two sorted arrays can be merged using two indices. For lists, one needs to keep in mind when one iterator reaches the end.
+
+The best approach to such a problem would be to traverse the two lists, always choosing the node containing the smaller key to continue 
+traversing from.
+
+It is also advisable to think of a naive appraoch in which to append the two lists together and sort the resulting list.
+However one key disadvantage is that it does not use the fact that the initial lists are sorted. The time complexity is that of 
+sorting which is O((n+m)log(n+m)) where n and m are the lengths of the two lists.
+
+public static ListNode<Integer> mergeTwoSortedLists(ListNode<Integer> L1, ListNode<Integer> L2){
+// creates a placeholder for the result
+
+ListNode<Integer> dummyHead = new ListNode<>(0,null);
+ListNode<Integer> current = dummyHead;
+
+while(L1 != null && L2 != null){
+  if(L1.data <= L2.data){
+     current.next = L1;
+     L1 = L1.next;
+   } else {
+      current.next = L2;
+      L2 = L2.next;
+      }
+      current = current.next;
+    }
+    // Appends the remaining nodes of L1 or L2
+    current.next = L1 != null ? L1 : L2;
+    return dummyHead.next;
+  }
+  
+  The worst case , from a running point of view is the case when the lists are of comparable length, so TC is O(m+n).
+  We reuse the existing nodes, the SC is O(1).
