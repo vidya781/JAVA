@@ -34,9 +34,9 @@ public class DivideByZeroNoExceptionHandling
     // With exception handling the program looks like this:
     
     // Handling ArithmeticExceptions and InputMismatchExceptions.
-34
+
 import java.util.Scanner;
-56
+
 public class DivideByZeroWithExceptionHandling
 {
 
