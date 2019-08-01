@@ -1,0 +1,20 @@
+Input is an array of integers and one has to reorder its entries so that even entries appear first. This is easy if one uses O(n) space,
+where n is the length of the array. The key is to solve this problemw ithout using additional storage. Thats where the efficiency aspect 
+comes in.Adapted from EPI.
+
+We can operate at both ends in a very efficient way. One can partition the array into three subarrays.Even, Unclassified and odd, specifically
+in that order. Initially Even and Odd are empty, and Unclassified is the entire array. We iterate through the Unclassified, moving its
+elements to the boundaries of the Even and Odd subarrays via swaps, thereby expanding the Even and Odd, and shrinking Unclassified.
+
+public static void evenOdd(List<Integer> A){
+  int nextEven = 0, nextOdd = A.size() - 1;
+  while(nextEven < nextOdd){
+     if(A.get(nextEven) % 2 == 0){
+         nextEven++;
+         } else {
+            Collections.swap(A,nextEven,nextOdd--);
+         }
+       }
+    }
+    
+ There is a constant amount of processing per entry, so the TC is O(n). Additional space complexity is O(1).
