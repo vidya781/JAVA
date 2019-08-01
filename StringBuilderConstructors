@@ -1,0 +1,67 @@
+The goal of this program is to demonstrate the StringBuilder constructors. Adapted from Dietel.
+
+public class StringBuilderConstructors
+ {
+    public static void main(String[] args)
+    {
+      StringBuilder buffer1 = new StringBuilder();
+      StringBuilder buffer2 = new StringBuilder( 10 );
+      StringBuilder buffer3 = new StringBuilder( "hello" );
+      
+      System.out.printf( "buffer1 = \"%s\"\n",buffer1);
+      System.out.printf( "buffer2 = \"%s\"\n",buffer2);
+      System.out.printf( "buffer3 = \"%s\"\n",buffer3);
+     } // end main
+  } // end class StringBuilderConstructors
+  
+  
+Class StringBuilder provides methods length and capacity to return the number of characters currently in a StringBuilder and the number 
+of characters that can be stored in a StringBuilder without allocating more memory, respectively. Method ensure-Capacity guarantees that
+a StringBuilder has at least the specified capacity.
+
+// We explore some of these ideas in implementation
+
+public class StringBuilderCaplen
+{
+  public static void main(String[] args)
+   {
+      StringBuilder buffer = new StringBuilder( " Hello, how are you?");
+      
+      System.out.printf( " buffer = %s\nlength = %d\n capacity = %d\n\n",
+       buffer.toString(),buffer.length(),buffer.capacity());
+       
+       buffer.setLength( 10 );
+       System.out.printf( " New Length = %d\nbuffer = %s\n",buffer.length(),buffer.toString() );
+       } // end main
+    } // end class StringBuilderCapLen
+    
+    // StringBuilder methods charAt, setCharAt, getChars and reverse.
+    
+    public class StringBuilderChars
+    
+    {
+       public static void main(String[] args )
+        {
+           StringBuilder buffer = new StringBuilder( " hello there ");
+           
+           System.out.printf( "buffer = %s\n", buffer.toString() );
+           System.out.printf( "Character at 0: %s\nCharacter at 4: %s\n\n",buffer.charAt(0),buffer.charAt( 4 ));
+           
+           char[] charArray = new char[ buffer.length() ];
+           buffer.getChars(0, buffer.length(), charArray, 0);
+           System.out.print( "The characters are: " );
+           
+           for( char character : charArray )
+             System.out.print( character );
+             
+           buffer.setCharAt( 0, 'H' );
+           buffer.setCharAt( 6, 'T');
+           System.out.printf( "\n\nbuffer = %s",buffer.toString() );
+           
+           buffer.reverse();
+           System.out.printf( "\n\nbuffer = %s\n",buffer.toString() );
+           }  // end main
+        } // end class StringBuilderChars
+           
+           
+           System.out.printf( " buffer 
