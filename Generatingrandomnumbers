@@ -1,0 +1,71 @@
+The fundamental question is: How does one generate random numbers between a range say [a,b] both inclusive? All values in this range should
+be equally likely.
+
+We start with some techniques:
+
+1] Using the Math class
+
+java.lang.Math class has a random method which generates a decimal value of type double which is greater than 0.0 and less than 1 
+(both inclusive)
+
+So in order to generate a random number between 1 and 50, we multiply the number returned by random to 50 and add 1 to it. This would increase the
+range to 1 to 50.995.Now cast the number so obtained to type int and the range will be between 1 and 50.
+
+public class RandomNumberGenerator
+{
+   public static void main()(String[] args){
+       usingMathclass();
+      }
+      static void usingMathclass(){
+         double randomDouble = Math.random();
+         randomDouble = randomDouble*50 + 1;
+         int randomInt = (int) randomDouble;
+         System.out.println(randomInt);
+         }
+      }
+      
+  2] Using the random class
+ 
+    java.util.Random class provides a method called nextInt which can generate random numbers between 0 and a specified upper boundary.
+    This method takes an integer as an argument. This integer value represents the upper limit of the random number that will be generated
+    by this method.The random number generated will be between 0 (inclusive) and the upper boundary value(exclusive)
+    
+    Create an object of the java.util.Random class and call its nextInt method with 50 as the argument.This will generate a number between
+    0 and 49 and now add 1 to it.That will give the random number between 1 and 50.
+    
+    import java.util.Random;
+    
+    public class RandomNumberGenerator{
+      public static void main(String[] args){
+         using RandomClass();
+         }
+         static void usingRandomClass(){
+            Random randomGenerator = new Random();
+            int randomInt = randomGenerator(50) + 1;
+            System.out.println("Random Number generated is : " + randomInt);
+            }
+        }
+        
+3] Using ThreadLocalRandom class
+   
+Java 7 has provided a new class called java.util.concurrent.ThreadLocalRandom. This class has methods to generate random numbers.
+
+This class is appropriate for generating random numbers in multithreaded environments since it will be a less overhead as compared
+to using java.util.Random class.ThreadLocalRandom class has a method nextInt which takes two arguments representing the lower and upper
+boundary values and returns an integer between those values.The result will be between lower boundary(inclusive) and upper boundary(exclusive). 
+For generating a number between 1 and 50, the lower and upper bounds passed to this method will be 1 and 51 respectively.
+In order to call this method, first its current method is called, then nextInt is called as ThreadLocalRandom.current().nextInt(1, 51);
+
+import java.util.concurrent.ThreadLocalRandom;
+ 
+public class RandomNumberGenerator {
+ 
+	public static void main(String[] args) {
+		usingThreadLocalClass();
+	}
+	static void usingThreadLocalClass() {
+		int randomInt = ThreadLocalRandom.current().nextInt(1, 51);
+		System.out.println("Random number generated is : " + randomInt);
+	}
+}
+       
