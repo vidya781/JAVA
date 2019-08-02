@@ -1,0 +1,145 @@
+This program is basically to understand the importance of Regex in Java. We employ a particular libary and call upon certain methods in order
+to achieve the end result.
+
+The following example is instructive:
+
+import java.util.regex.*;
+
+class RegexExample{
+   public static void main(String[] args){
+     String content = " This is Vidyashankar " + " from Beginnersbook.com";
+     String pattern = ".*book.*";
+     boolean isMatch = Pattern.matches(pattern,content);
+     System.out.println("The text contains a 'book'? " + isMatch);
+     }
+  }
+  
+The java.util.regex API (the package which we need to import while dealing with Regex) has two main classes:
+
+1) java.util.regex.Pattern – Used for defining patterns
+2) java.util.regex.Matcher – Used for performing match operations on text using patterns
+
+Using the java.util.regex.Pattern class
+
+String content = " abra ca dabra! ";
+String patternString = ".*ca.*";
+boolean isMatch = Pattern.matches(patternString, content);
+System.out.println(" The text contains 'ca'? " + isMatch);
+
+This is normally used for single pattern occurence in text. For multiple occurences of text, one should use the Pattern.compile() method
+
+Using the java.util.regex.compile()
+
+String content = 'abra ca dabra! ";
+String patternString = ".*Ca.*";
+Pattern pattern = Pattern.compile(patternString,Pattern.CASE_INSENSITIVE);
+
+Pattern.split() method
+To split a text into multiple strings based on a delimiter (Here delimiter would be specified using regex), we can use Pattern.split() method. 
+This is how it can be done.
+
+import java.util.regex.*;  
+class RegexExample2{  
+public static void main(String args[]){  
+	String text = "ThisIsVidya.ThisISMyWebsite";
+    // Pattern for delimiter
+	String patternString = "is";
+	Pattern pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE);
+	String[] myStrings = pattern.split(text);
+	for(String temp: myStrings){
+	    System.out.println(temp);
+	}
+	System.out.println("Number of split strings: "+myStrings.length);
+  }
+}
+
+There could be multiple occurences of a pattern within a string. We need to employ some methods in order to find this out.
+
+Some of the methods we use are : matches()[matches the RE against the whole text],find()[matches the RE at the beginning of the text],lookingAt(),start() and end()[ getting the start and the end indices of a match that is found 
+using the find() method())
+
+import java.util.regex.*;  
+class RegexExampleMatcher{  
+public static void main(String args[]){  
+  String content = "ZZZ AA PP AA QQQ AAA ZZ";
+
+  String string = "AA";
+  Pattern pattern = Pattern.compile(string);
+  Matcher matcher = pattern.matcher(content);
+
+  while(matcher.find()) {
+     System.out.println("Found at: "+ matcher.start()
+    		+ 
+    		" - " + matcher.end());
+     }
+  } 
+}
+
+Consider the following generic example:
+
+import java.util.regex.*;  
+class RegexExample{  
+public static void main(String args[]){  
+   // It would return true if string matches exactly "tom"
+   System.out.println(
+     Pattern.matches("tom", "Tom")); //False
+	
+   /* returns true if the string matches exactly 
+    * "tom" or "Tom"
+    */
+   System.out.println(
+     Pattern.matches("[Tt]om", "Tom")); //True
+   System.out.println(
+     Pattern.matches("[Tt]om", "Tom")); //True
+	
+   /* Returns true if the string matches exactly "tim" 
+    * or "Tim" or "jin" or "Jin"
+    */
+   System.out.println(
+     Pattern.matches("[tT]im|[jJ]in", "Tim"));//True
+   System.out.println(
+     Pattern.matches("[tT]im|[jJ]in", "jin"));//True
+	
+   /* returns true if the string contains "abc" at 
+    * any place
+    */
+    
+   System.out.println(
+     Pattern.matches(".*abc.*", "deabcpq"));//True
+	
+   /* returns true if the string does not have a 
+    * number at the beginning
+    */
+   System.out.println(
+     Pattern.matches("^[^\\d].*", "123abc")); //False
+   System.out.println(
+     Pattern.matches("^[^\\d].*", "abc123")); //True
+	
+   // returns true if the string contains of three letters
+   System.out.println(
+     Pattern.matches("[a-zA-Z][a-zA-Z][a-zA-Z]", "aPz"));//True
+   System.out.println(
+     Pattern.matches("[a-zA-Z][a-zA-Z][a-zA-Z]", "aAA"));//True
+   System.out.println(
+     Pattern.matches("[a-zA-Z][a-zA-Z][a-zA-Z]", "apZx"));//False
+	
+   // returns true if the string contains 0 or more non-digits
+   System.out.println(
+     Pattern.matches("\\D*", "abcde")); //True
+   System.out.println(
+     Pattern.matches("\\D*", "abcde123")); //False
+	
+   /* Boundary Matchers example
+    * ^ denotes start of the line
+    * $ denotes end of the line 
+
+*/
+   System.out.println(
+     Pattern.matches("^This$", "This is Vidya")); //False
+   System.out.println(
+     Pattern.matches("^This$", "This")); //True
+   System.out.println(
+     Pattern.matches("^This$", "Is This Vidya")); //False
+   }
+}
+
