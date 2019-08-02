@@ -1,0 +1,30 @@
+
+A static method belongs to the class while a non static method belongs to an object of the class.
+
+Static methods--useful if you have only one instance where you are going to use the method and you dont need multiple copies ( objects )
+
+Non static methods are used if you are going to use your method to create multiple copies.
+
+public class TestClass{
+   public static void(String[] args) {
+     display();
+   }
+   
+public static void display(){
+   System.out.println(" Call from static methods ");
+   }
+}
+
+Non static example
+
+public class TestClass {
+   public static void main(String[] args){
+      TestClass tc = new TestClass();
+      tc.display();
+      
+      //object created here because display is a non-static method
+    }
+  public void display(){
+     System.out.println( " Call from non-static method ");
+     }
+   }
