@@ -1,0 +1,103 @@
+In this program we explore some methods for appending text to some files.
+
+1] Using FileWriter
+
+import java.io.FileWriter;
+import java.io.IOException;
+ 
+void appendToFile() {
+   FileWriter writer = null;
+   try {
+        // open file in append mode
+	writer = new FileWriter("f:\\testfile.txt", true);
+	writer.write("appendedText");
+   } catch (IOException e) {
+	e.printStackTrace();
+   } finally {
+	if (writer != null) {
+	   writer.close();
+	    }
+   }
+}
+
+2] Using Files class
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.io.IOException;
+ 
+void appendToFile() {
+   try {
+	Files.write(Paths.get("f:\\testfile.txt"), "appendedText".getBytes(), 
+                      StandardOpenOption.APPEND);
+   } catch (IOException e) {
+	e.printStackTrace();
+   }
+}
+
+
+3] Using FileUtils from Apache Commons
+
+import org.apache.commons.io.FileUtils;
+import java.io.IOException;
+ 
+void appendToFile() {
+   try {
+	FileUtils.writeStringToFile(new File("f:\\testfile.txt"), "appendedText", true);
+   } catch (IOException e) {
+	e.printStackTrace();
+   }
+}
+
+4] Reading File Contents
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+ 
+void appendToFile() {
+   BufferedReader reader = null;
+   // initialize a string buffer to hold file contents
+   StringBuffer contents = new StringBuffer();
+   try {
+	// initialize file reader
+	reader = new BufferedReader(new FileReader("f:\\testfile.txt"));
+	String line = null;
+	// read file line by line
+	while ((line = reader.readLine()) != null) {
+		// add current line to buffer
+		contents.append(line).append("\n");
+	}
+   } catch (FileNotFoundException e) {
+        e.printStackTrace();
+   } catch (IOException e) {
+	e.printStackTrace();
+   } finally {
+	if (reader != null) {
+	   // close reader
+	   reader.close();
+	}
+   }
+ 
+   FileWriter writer = null;
+   try {
+        // append text to file contents
+	contents.append("appendedText");
+	// initialize file writer
+	writer = new FileWriter("f:\\testfile.txt");
+	// writer contents to file
+	writer.write(contents.toString());
+   } catch (FileNotFoundException e) {
+	e.printStackTrace();
+   } catch (IOException e) {
+	e.printStackTrace();
+   } finally {
+	// close writer
+	if (writer != null) {
+	   writer.close();
+	}
+   }
+}
