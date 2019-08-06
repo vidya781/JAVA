@@ -1,5 +1,4 @@
-Java program to find duplicate Characters
-   in a string
+Java program to find duplicate Characters in a string
    import java.util.HashMap;
    import java.util.Map;
    import java.util.Set;
