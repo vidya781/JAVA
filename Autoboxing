@@ -1,0 +1,136 @@
+This short write up is to illustrate the concept of autoboxing adapted from GFG.
+
+The actual concept:
+
+Converting a primitive value into an object of the corresponding wrapper class is called autoboxing.
+For example, converting int to Integer class. JC (Java compiler) applies autoboxing when a primitive value is:
+a)	Passed as a parameter to a method that expects an object of the corresponding wrapper class
+b)	Assigned to a variable of the corresponding wrapper class.
+
+Unboxing:
+
+Converting an object of a wrapper type to its corresponding primitive value is called unboxing. For example, conversion of Integer to int. The Java compiler applies unboxing when an object of a wrapper class is:
+
+a)	Passed as a parameter to a method that expects a value of the corresponding primitive tpe
+b)	Assigned to a variable of the corresponding primitive type
+
+// Java program to illustrate the concept 
+// of Autoboxing and Unboxing 
+
+// Java program to illustrate the concept 
+// of Autoboxing and Unboxing 
+import java.io.*; 
+
+class GFG 
+{ 
+	public static void main (String[] args) 
+	{ 
+		// creating an Integer Object 
+		// with value 10. 
+		Integer i = new Integer(10); 
+
+		// unboxing the Object 
+		int i1 = i; 
+
+		System.out.println("Value of i: " + i); 
+		System.out.println("Value of i1: " + i1); 
+
+		//Autoboxing of char 
+		Character gfg = 'a'; 
+
+		// Auto-unboxing of Character 
+		char ch = gfg; 
+		System.out.println("Value of ch: " + ch); 
+		System.out.println("Value of gfg: " + gfg); 
+
+	} 
+} 
+
+We consider another example of how the compiler is actually doing the autoboxing and the unboxing in the examples of Collections in Java
+using generics.
+
+/* Java program to illustrate autoboxing */
+import java.io.*; 
+import java.util.*; 
+
+class GFG 
+{ 
+	public static void main (String[] args) 
+	{ 
+		/* Here we are creating a list 
+		of elements of Integer type. 
+		adding the int primitives type values */
+		List<Integer> list = new ArrayList<Integer>(); 
+		for (int i = 0; i < 10; i++) 
+			list.add(i); 
+	} 
+} 
+
+We have created a list of elements of Integer type. We are adding int primitive type values instead of Integer Object and the code successfully compiled.
+It does not generate a compile time error as java compiler create Integer wrapper Object from primitive int i and adds it to the list.
+
+/* Java program to illustrate autoboxing */
+import java.io.*; 
+import java.util.*; 
+
+class GFG 
+{ 
+	public static void main (String[] args) 
+	{ 
+		/* Here we are creating a list of elements 
+		of Integer type. Adding the int primitives 
+		type values by converting them into Integer 
+		wrapper Object*/
+		List<Integer> list = new ArrayList<Integer>(); 
+		for (int i = 0; i < 10; i++) 
+			list.add(Integer.valueOf(i)); 
+
+	} 
+} 
+Another example of auto and unboxing is to find sum of odd numbers in a list. Important point in the program is that the operators 
+remainder (%) and unary plus (+=) operators do not apply to Integer objects. But still code compiles successfully because the 
+unboxing of Integer Object to primitive int value is taking place by invoking intValue() method at runtime.
+
+// Java program to illustrate find sum 
+// of odd numbers using autobxing and unboxing 
+import java.io.*; 
+import java.util.*; 
+
+class GFG 
+{ 
+	public static int sumOfOddNumber(List<Integer> list) 
+	{ 
+		int sum = 0; 
+		for (Integer i : list) 
+		{ 
+			// unboxing of i automatically 
+			if(i % 2 != 0) 
+				sum += i; 
+			/* unboxing of i is done automatically 
+			using intvalue implicitly 
+			if(i.intValue() % 2 != 0) 
+				sum += i.intValue();*/
+		} 
+		return sum; 
+	} 
+
+	public static void main (String[] args) 
+	{ 
+		/* Here we are creating a list of elements 
+		of Integer type and adding the int primitives 
+		type values to the list*/
+		List<Integer> list = new ArrayList<Integer>(); 
+		for (int i = 0; i < 10; i++) 
+			list.add(i); 
+
+		// getting sum of all odd no. in the list. 
+		int sumOdd = sumOfOddNumber(list); 
+		System.out.println("Sum of odd numbers = " + sumOdd); 
+	} 
+} 
+
+Advantages of Autoboxing and Unboxing:
+
+1] It is a concept that lets developers write cleaner code making it easier to read.
+2] The technique lets us use primitive types and Wrapper class objects interchangeably . No need to perform typecasting explicitly.
+
