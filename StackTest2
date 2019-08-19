@@ -1,0 +1,60 @@
+This program adapted from Deitel is to demonstrate passing generic Stack objects to generic methods
+
+public class StackTest2
+ {
+   public static void main(String[ ] args)
+   {
+      Double[ ] doubleElements = { 1.1,2.2,3.3,4.4,5.5 };
+      
+      Integer[ ] integerElements = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+      
+      // Create a Stack < Double > and a Stack < Integer >
+      
+      Stack < Double > doubleStack = new Stack < Double >(5);
+      Stack < Integer> integerStack = new Stack < Integer >( );
+      
+      // push elements of double Elements onto Double Stack
+      testPush( " doubleStack ", doubleStack,doubleElements);
+      testPop(" doubleStack ", doubleStack); // pop from doubleStack
+    } // end main
+    
+    // generic method testPush pushes elements onto a Stack
+    
+    public static < T > void testPush ( String name, Stack < T > stack, T[ ] elements)
+      {
+         System.out.printf("\n Pushing elements onto %s\n ", name);
+         // push elements onto Stack
+         for ( T element : elements )
+          {
+             System.out.printf( " %s ", element);
+            stack.push( element );  // push element onto stack
+          } // end for
+       } // end method testPush
+  
+   public static < T > void testPop( String name, Stack < T > stack )
+    {
+       // pop elements from the stack
+       try 
+       {
+          System.out.printf(" \nPopping elements from %s\n ", name);
+          T popvalue; // store element removed from stack
+          
+          // remove elements from Stack
+          while ( true )
+          {
+             popValue = stack.pop();
+             System.out.printf("%s",popValue);
+          } // end while
+        } // end try
+      catch( EmptyStackException emptyStackException)
+       {
+          System.out.println();
+          emptyStackException.printStackTrace();
+       } // end catch EmptyStackException
+     } // end method testPop
+   } // end class StackTest2
+     
+       
+        
+             
+          
