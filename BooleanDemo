@@ -1,0 +1,27 @@
+This program demonstrates the use of a Boolean variable to end the loop iteration. Adapted from Savitch
+
+import java.util.Scanner;
+
+/** Illustrates the use of a boolean variable to end the loop iteration*/
+
+public class BooleanDemo
+{
+  public static void main(String[] args)
+  {
+    System.out.println("Enter nonnegative numbers.");
+    System.out.println("Place a negative number at the end");
+    System.out.println("to serve as the end marker.");
+    int sum = 0;
+    boolean areMore = true;
+    Scanner keyboard = new Scanner(System.in);
+    while(areMore)
+    {
+      int next = keyboard.nextInt();
+      if(next < 0)
+         areMore = false;
+      else
+         sum = sum + next;
+     }
+     System.out.println(" The sum of the numbers is " + sum);
+   }
+}
