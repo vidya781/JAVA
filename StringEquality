@@ -1,4 +1,4 @@
-This program demsonstrates the use of constructs in order to test for String Equality
+This program demsonstrates the use of constructs in order to test for String Equality. Adapted from Savitch.
 
 import java.util.Scanner;
 public class StringEqualityDemo
