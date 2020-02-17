@@ -1,0 +1,49 @@
+Given an unsorted array of integers, print all elements which are greater than all elements present to its right.
+
+Input : { 10, 4, 6, 3, 5}
+
+Output : { 10, 6, 5}
+
+How would a naive approach work?
+
+Use two loops. For each element, we check if any greater element exists to its right of it or not.If all elements to its right
+of it or not. If element to its right are greater than it, we print it out. Since there are 2 loops, TC is O(n ^2).
+
+Better approach is using the stack. For each element, pop all elements present in the stack that are less than it, and 
+then push it onto the stack. Finally the stack is left with elements which are greater than the elements present to its right.
+
+import java.util.Stack;
+
+class Main
+{
+	// Function to print all elements which are greater than all
+	// elements present to its right
+	public static void find(int[] arr)
+	{
+		// create an empty stack
+		Stack<Integer> stk = new Stack<>();
+
+		// do for each element
+		for (int i = 0; i < arr.length; i++)
+		{
+			// pop all the elements that are less than the current element
+			while (!stk.isEmpty() && stk.peek() < arr[i]) {
+				stk.pop();
+			}
+
+			// push current element into the stack
+			stk.push(arr[i]);
+		}
+
+		// print all elements in stack
+		while (!stk.isEmpty()) {
+			System.out.print(stk.pop() + " ");
+		}
+	}
+
+	public static void main(String[] args)
+	{
+		int[] arr = { 10, 4, 6, 3, 5 };
+		find(arr);
+	}
+}
