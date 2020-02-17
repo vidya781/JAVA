@@ -1,0 +1,82 @@
+Given MXN matrix, find all common elements present in every row.
+
+For example , if the input is as follows:
+
+[7 1 3 5 3 6]
+
+[2 3 6 1 1 6]
+
+[6 1 7 2 1 4]
+
+[6 6 7 1 3 3]
+
+Common elements are : 1 and 6
+
+The approach is simple and efficient. Create an empty file and then insert all elements of the first row in the map with
+their value set as 1. Now for each element of remaining rows, we check if it is present in the map or not. If the element is present 
+in the map, we check its count to see if it is present in all the previous rows or not.If yes, we increment its count by 1 else 
+we ignore the element. A duplicate entry should not be entered into the row again
+
+import java.util.Hashmap;
+import java.util.Map;
+
+class Main {
+  public static void findCommonElements(int[][] mat)
+   {
+      // R X C matrix
+      int R = mat.length;
+      int C = mat[0].length;
+      
+      // Create an empty map
+      Map< Integer, Integer> map = new HashMap<> ();
+      
+        // Insert all elements of the first row in the map with their value set as 1
+        
+        for(int c = 0;c < C;c++) {
+          map.put(map[0][c],1);
+          }
+          
+          
+          // for remaining rows
+          
+          for(int r = 1; r < R; r++)
+            {
+                for ( int c = 0; c < C; c++)
+                  {
+                      // get current element
+                      int curr = mat[r][c];
+                      
+                      // if current element is present in the map and its value is the same as the row index
+                      // increment its value by 1
+                      // this check also handl;es the duplicate entries in the same row
+                      
+               if(map.containsKey(curr) && map.get(curr) == r) {
+                  map.put(curr, r + 1);
+                  }
+               }
+           }
+           
+           // Iterate over each entry in the map and print keys having their value equal to ROW ( number of rows in the matrix)
+           
+           System.out.print("Common elements are : ");
+           for( Map.Entry< Integer, Integer> entry: map.entrySet()) {
+              if(entry.getValue() == R ) {
+                System.out.print(entry.getKey() + "  ");
+                }
+            }
+        }
+       public static void main(String[] args)
+       {
+          int[][] mat = { {7,1,3, 5,3,6}
+
+                          {2,3,6,1,1,6}
+
+                          {6,1,7,2,1,4}
+
+                          {6,6,7,1,3,3}
+         };
+                          
+        findCommonElements(mat);
+        }
+     }
+
