@@ -1,0 +1,131 @@
+Given an array of integers, find a subarray having a given sum
+
+Input : { 2,6,0,9,7,3,1,4,1,10} Sum : 15
+Output : {6,0,9}
+
+Input: {0,5,-7,1,-4,7,6,1,4,1,10} Sum: 15
+Output: {1,-4,7,6,1,4}
+         or {4,1,10}
+         
+Input: {0,5,-7,1,-4,7,6,1,4,1,10} sum : -3
+Output : {1,-4} exists with sum -3
+
+Adapted from TDL
+
+We consider two scenarios one in which the array consists of only positive numbers
+
+class Util
+{
+   // Function to print sub-array having given sum using the sliding window technique
+   
+   public void static findSubarray(int[] A, int sum)
+   {
+      // maintain sum of current window
+      int windowsum = 0;
+      
+      // maintain a window [low, high-1]
+      int low = 0, high = 0;
+      
+      // consider every sub-array starting from low index
+      for(low = 0; low < A.length; low++)
+      {
+         // if current window's sum is less than the given sum, add elements to the current window from the right
+         while (windowsum < sum && high < A.length)
+          {
+             windowsum += A[high];
+             high++;
+          }
+          //if current window's sum is equal to the given sum
+          if(windowsum == sum)
+          {
+             System.out.printf("Subarray found[%d-%d\n",low, high - 1);
+             return;
+           }
+           // At this point, the current window's sum is more than the given sum remove the current element (leftmost element)
+           // from the window
+           
+           windowsum -= A[low];
+           }
+       }
+       
+       // main function
+       public static void main(String[] args)
+       {
+          // array of positive integers
+          int[] A = {2,6,0,9,7,3,1,4,1,10};
+          int sum = 15;
+          
+          findsubarray(A,sum);
+          }
+       }
+       
+  Approach for the above algorithm: Maintain a window that starts from the current window and sum of its elements is more than or 
+  equal to the currents sum.If the current sum becomes less than the given sum, then we keep adding elements from the right and 
+  print the window if its sum is equal to the given sum at any point of time. It is obvious that the approach holds only for positive
+  integers.
+  
+  O(n) TC, O(1) SC for the above approach.
+  
+  
+  
+  import java.util.HashSet;
+import java.util.Set;
+
+class Util
+{
+	// Function to check if sub-array with given sum exists in
+	// the array or not
+	public static boolean findSubarray(int[] A, int sum)
+	{
+		// create an empty set
+		Set<Integer> set = new HashSet<>();
+
+		// insert number 0 into the set to handle the case when
+		// sub-array with given sum starts from index 0
+		set.add(0);
+
+		// maintains sum of elements so far
+		int sum_so_far = 0;
+
+		// traverse the given array
+		for (int i: A)
+		{
+			// update sum_so_far
+			sum_so_far += i;
+
+			// if (sum_so_far - sum) is seen before, we have found
+			// the sub-array with sum 'sum'
+			if (set.contains(sum_so_far - sum)) {
+				return true;
+			}
+
+			// else insert sum of elements so far into the set
+			set.add(sum_so_far);
+		}
+
+		// we reach here when no sub-array exists
+		return false;
+	}
+
+	// main function
+	public static void main(String[] args)
+	{
+		// array of integers
+		int[] A = { 0, 5, -7, 1, -4, 7, 6, 1, 4, 1, 10 };
+		int sum = -3;
+
+		if (findSubarray(A, sum)) {
+			System.out.print("Sub-array with given sum exists");
+		}
+		else {
+			System.out.print("Sub-array with given sum do not exist");
+		}
+	}
+}
+
+Use Hashing to to check if the sub array with the given sum exists in the array or not.Traverse the array and maintain the 
+sum of the given elements seen so far.If the difference of current sum and given sum is seen before ( ie difference exists in the set)
+we return true as there exists at least one subarray with the given sum which ends at the current index else we insert the sum
+into the set.
+  
+  O(n), O(1)
