@@ -1,0 +1,62 @@
+A Naive method for Linked List implementation. Allocate memory for all individual nodes of the linked list, set their data 
+and then rearrange references to build the complete set.
+
+
+class Node {
+    int data;
+    Node next;
+    
+    Node(int data) {
+       this.data = data;
+       this.next = null;
+       }
+    }
+    
+class LinkedListUtils
+{
+   // Helper function to print the given linked list
+   
+   public static void printList(Node head)
+   {
+     Node ptr = head;
+     while ( ptr != null )
+     {
+       System.out.print(ptr.data + " - > ");
+       ptr = ptr.next;
+     }
+     
+   System.out.println("null");
+   }
+   
+   // Naive method for constructing a linked list
+   public static Node constructlist()
+   {
+      // construct linked list nodes
+      
+      Node first = new Node(1);
+      Node second = new Node(2);
+      Node third = new Node(3);
+      Node fourth = new Node(4);
+      
+      // rearrange the references to construct a list
+      Node head = first;
+      first.next = second;
+      second.next = third;
+      third.next = fourth;
+      
+      // return reference to first node in the list
+      return head;
+      
+      // main method to implement linked list
+      
+      public static void main (String[] args)
+      {
+        // head node points to the head node of the linked list
+        Node head = constructList();
+        
+        // print linked list
+        printList(head);
+        }
+     }
+     
+     
