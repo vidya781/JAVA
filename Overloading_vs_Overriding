@@ -1,0 +1,47 @@
+Some basic concepts need to be enunciated clearly for a good grasp.
+
+We discuss differences between Overloading and Overriding
+
+Overloading is a term used to describe when two methods have the same name but differ in the type or the number of arguments.
+
+public double computeArea(Circle c) {....}
+public double computeArea(Square s){.....}
+
+Overriding , however occurs when a method shares the same name and function signature as another method in its super class.
+
+public abstract class Shape {
+   public void printMe() {
+      System.out.print("I am a shape.");
+   }
+   public abstract double computeArea();
+  }
+  
+  public double computeArea() {
+      return rad * rad * 3.15;
+      }
+      
+  public class Ambiguous extends Shape {
+     private double area = 10;
+     public double computeArea() {
+         return area;
+      }
+   }
+   
+   public class IntroductionOverriding {
+      public sttaic void main(String[] args) {
+         Shape[] shapes = new Shape[2];
+         Circle circle = new Circle();
+         Ambiguous ambiguous = new Ambiguous();
+         
+         shapes[0] = circle;
+         shapes[1] = ambiguous;
+         
+         for(Shape s : shapes ) {
+             s.printMe();
+             System.out.println(s.computeArea());
+         }
+     }
+  }
+  
+  
+
