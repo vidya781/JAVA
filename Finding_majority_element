@@ -1,0 +1,86 @@
+Given an array containing duplicates, return the majority element in the array if present. A majority element appears more than
+n/2 times where n is the size of the array.
+
+For example, in the array {2,8,7,2,2,5,2,3,1,2,2} the majority element is 2.
+
+BF solution :
+
+Count the frequency of each element present in the first half of the array to see if it is the majority element or not.
+
+
+int MajorityelementBF(int A[], int n)
+{
+   // check if A[i] is majority element or not
+   for ( int i = 0; i <= n/2 ; i++ )
+   {
+      int count = 1;
+      for( int j = i + 1; j < n ; j++ )
+      {
+         if(A[j] == A[i]) {
+             count++;
+             }
+        }
+        
+    if ( count > n/2 ) {
+       return A[i];
+       }
+   }
+   return -1;
+ }
+ 
+ TC : O(n^2)
+ 
+ However by hashing one can achieve an O(n) solution. Basic idea is to store each element's frequency in a map and return
+ the element if its frequency is more than n/2.If no such element is present, then majority element does not exist in the array
+ and one returns -1. TC is O(n) and auxiliary space is O(n).
+ 
+ import java.util.Hashmap;
+ import java.util.Map;
+ 
+ class Main
+ {
+    public static int majorityelement(int[] A)
+    {
+       // create an empty Hash Map
+       Map <Integer, Integer> map = new HashMap<> ();
+       
+       // store each element's frequency in a map
+       for(int i : A)
+       {
+          map.putIfAbsent(i,0);
+          map.put(i,map.get(i) + 1);
+       }
+       
+       // return the element if its count is more than n/2
+       
+       for(Map.Entry<Integer, Integer> entry : map.EntrySet())
+       {
+          if (entry.getValue() > A.length/2) {
+               return entry.getKey();
+       }
+   }
+   
+   // no majority element is present
+   return -1;
+}
+
+public static void main(String[] args) 
+{
+   // Assumption - valid input ( Majority element is present) 
+   
+   int arr[] = { 1,8,7,4,1,2,2,2,2,2,2};
+   
+   int res = majorityElement(arr);
+   if(res != -1){
+       System.out.println("Majority element is " + res);
+   } else {
+       System.out.println("Majority element does not exist");
+       }
+    }
+}
+
+
+   
+ 
+ 
+        
