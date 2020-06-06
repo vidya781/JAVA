@@ -1,0 +1,50 @@
+Given an array of integers, find two numbers such that they add up to a specific target number. The function twoSum should
+return indices of the two numbers, such that they add up to the target, where Index1 must be less than index2. Please note
+that the returned ansswers (both index1 and index2) are not zero based
+Input : numbers = {2,7,11,15}, target = 9
+Output: index1 = 1, index2 = 2
+
+Solution:
+
+We first consider a Brute Force Approach, which naturally must involve two loops
+
+public int[] twosum(int[] nums, int target) {
+     for(int i = 0; i < nums.length; i++) {
+         for(int j = i+1; j < nums.length; j++) {
+            if(nums[j] == target - nums[i]) {
+                return new int[ ]{i,j};
+                }
+            }
+        }
+        
+     throw new IllegealArgumentException("No twosum solution");
+   }
+   
+Time Complexity : O(n^2)
+Space Complexity : O(1)
+
+One pass through the Hash table
+-------------------------------
+
+public int[] twosum(int[] nums, int target) {
+  Map< Integer, Integer> map = new HashMap<>();
+  for(int i = 0; i < nums.length; i++){
+     int complement = target - nums[i];
+     if(map.containsKey(complement)){
+        return int[] { map.get(complement),i};
+        }
+      map.put(nums[i],i);
+    }
+    throw new IllegallArgumentException("No two sum solution");
+   }
+   
+   Approach and thought process of the algorithm:
+   
+   [2,5,7,4]  Target = 9 | Map                       
+    0 1 2 3                      2 : 0
+                                 5 : 1
+    Initially 2 is mapped at index 0 in the map 
+    Then 5 is mapped at index 1 in the map
+    Complement = 9 - 2 = 7, looks to see if present in the array, and index noted and the mapping index noted and pushed into
+    an array
+                           5 : 1
