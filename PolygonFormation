@@ -1,0 +1,42 @@
+Develop a program in Java in order to determine if given the number of lengths of the sides, the given figure 
+would form a polygon or not
+
+Java Code for the above problem is as follows :
+
+// Java implementation of the approach 
+class PolygonFormation { 
+
+	// Function that returns true if it is possible 
+	// to form a polygon with the given sides 
+	static boolean isPossible(int a[], int n) 
+	{ 
+		// Sum stores the sum of all the sides 
+		// and maxS stores the length of 
+		// the largest side 
+		int sum = 0, maxS = 0; 
+		for (int i = 0; i < n; i++) { 
+			sum += a[i]; 
+			maxS = Math.max(a[i], maxS); 
+		} 
+
+		// If the length of the largest side 
+		// is less than the sum of the 
+		// other remaining sides 
+		if ((sum - maxS) > maxS) 
+			return true; 
+
+		return false; 
+	} 
+
+	// Driver code 
+	public static void main(String[] args) 
+	{ 
+		int a[] = { 2, 3, 4 }; 
+		int n = a.length; 
+
+		if (isPossible(a, n)) 
+			System.out.print("Yes"); 
+		else
+			System.out.print("No"); 
+	} 
+} 
